@@ -8,8 +8,16 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/folder/:id',
-    component: () => import ('../views/FolderPage.vue')
-  }
+    component: () => import ('../pages/FolderPage.vue')
+  },
+  {
+    path: '/manageshop',
+    component: () => import ('../pages/ManageShop.vue')
+  },
+  {
+    path: '/order',
+    component: () => import ('../pages/ManageOrder.vue')
+  },
 ]
 
 const router = createRouter({
