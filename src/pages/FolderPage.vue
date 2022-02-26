@@ -10,7 +10,7 @@
     </ion-header>
     
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
+      <!-- <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ $route.params.id }}</ion-title>
         </ion-toolbar>
@@ -19,7 +19,9 @@
       <div id="container">
         <strong class="capitalize">{{ $route.params.id }}</strong>
         <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+      </div> -->
+      <ManageShop v-if="$route.params.id=='Manage Shop'"/>
+      <ManageOrder v-if="$route.params.id=='Order'"/>
     </ion-content>
   </ion-page>
 </template>
@@ -27,10 +29,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import ManageOrder from "./ManageOrder.vue";
+import ManageShop from './ManageShop.vue';
 
 export default defineComponent({
   name: 'FolderPage',
   components: {
+    ManageOrder,
+    ManageShop,
     IonButtons,
     IonContent,
     IonHeader,
