@@ -1,0 +1,8 @@
+{
+  "name": "cafe_order_management",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue",
+  "id": "413e675e"
+}
