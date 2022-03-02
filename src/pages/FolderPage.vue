@@ -1,46 +1,44 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header :translucent="true" style="display:flex; justify-content:space-between">
       <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button color="primary"></ion-menu-button>
-        </ion-buttons>
-        <ion-title>{{ $route.params.id }}</ion-title>
+        <ion-title></ion-title>
+        <!-- <ion-title>{{ $route.params.id }}</ion-title> -->
       </ion-toolbar>
+        <div>
+            User setting
+        </div>
     </ion-header>
     
     <ion-content :fullscreen="true">
-      <!-- <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">{{ $route.params.id }}</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
-      <div id="container">
-        <strong class="capitalize">{{ $route.params.id }}</strong>
-        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div> -->
+      <DashBoard v-if="$route.params.id=='Dashboard'" />
       <ManageShop v-if="$route.params.id=='Manage Shop'"/>
       <ManageOrder v-if="$route.params.id=='Order'"/>
+      <OrderInPlace v-if="$route.params.id=='Order In Place'"/>
+      <OrderTakeAway v-if="$route.params.id=='Order Take Away'"/>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import ManageOrder from "./ManageOrder.vue";
 import ManageShop from './ManageShop.vue';
+import DashBoard from './Dashboard.vue';
+import OrderInPlace from './OrderInPlace.vue';
+import OrderTakeAway from './OrderTakeAway.vue';
 
 export default defineComponent({
   name: 'FolderPage',
   components: {
+    OrderTakeAway,
+    OrderInPlace,
+    DashBoard,
     ManageOrder,
     ManageShop,
-    IonButtons,
     IonContent,
     IonHeader,
-    IonMenuButton,
     IonPage,
     IonTitle,
     IonToolbar

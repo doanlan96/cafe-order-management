@@ -4,7 +4,8 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '',
-    redirect: '/folder/Inbox'
+    redirect: '/folder/Dashboard',
+    component: () => import ('../pages/Dashboard.vue')
   },
   {
     path: '/folder/:id',
@@ -17,6 +18,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/order',
     component: () => import ('../pages/ManageOrder.vue')
+  },
+  {
+    path: '/folder/OrderInPlace',
+    component: () => import ('../pages/OrderInPlace.vue')
+  },
+  {
+    path: '/ordertakeaway',
+    component: () => import ('../pages/OrderTakeAway.vue')
   },
 ]
 
