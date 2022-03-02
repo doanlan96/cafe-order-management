@@ -3,7 +3,7 @@
     <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay" style="max-width: 15%;">
         <ion-content>
-          <ion-list id="inbox-list">
+          <ion-list id="inbox-list" >
             <ion-list-header>T-Hi</ion-list-header>
             <ion-note>Lemon Tea Cafe</ion-note>
   
@@ -18,14 +18,14 @@
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
     </ion-split-pane>
-  </ion-app>
+  </ion-app >
 </template>
 
 <script lang="ts">
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import {clipboardOutline, clipboardSharp, archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'App',
@@ -46,6 +46,12 @@ export default defineComponent({
   setup() {
     const selectedIndex = ref(0);
     const appPages = [
+      {
+        title: 'Dashboard',
+        url: '/folder/Dashboard',
+        iosIcon: clipboardOutline,
+        mdIcon: clipboardSharp
+      },
       {
         title: 'Order',
         url: '/folder/Order',
@@ -81,7 +87,7 @@ export default defineComponent({
         url: '/folder/About',
         iosIcon: warningOutline,
         mdIcon: warningSharp
-      }
+      },
     ];
     const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
     
@@ -96,6 +102,8 @@ export default defineComponent({
       selectedIndex,
       appPages, 
       labels,
+      clipboardSharp,
+      clipboardOutline,
       archiveOutline, 
       archiveSharp, 
       bookmarkOutline, 

@@ -20,10 +20,55 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Ionic App" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link
+    rel="stylesheet"
+    href="<%= BASE_URL %>fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="<%= BASE_URL %>fonts/themify/themify-icons.css"
+  />
+  <link
+    rel="stylesheet"
+    href="<%= BASE_URL %>fonts/Linearicons-Free-v1.0.0/icon-font.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="<%= BASE_URL %>fonts/elegant-font/html-css/style.css"
+  />
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  <link rel="stylesheet" href="<%= BASE_URL %>css/bootstrap.min.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>css/hamburgers.min.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>css/animate.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>css/main.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>css/util.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
   </head>
 
   <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
     <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
   </body>
 
 </html>
