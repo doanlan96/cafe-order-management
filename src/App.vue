@@ -16,13 +16,13 @@
           </ion-list>
         </ion-content>
       </ion-menu>
-      <ion-router-outlet id="main-content"></ion-router-outlet>
+      <ion-router-outlet id="main-content" ></ion-router-outlet>
     </ion-split-pane>
   </ion-app >
 </template>
 
 <script lang="ts">
-import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
+import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane} from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import {clipboardOutline, clipboardSharp, archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
@@ -98,6 +98,7 @@ export default defineComponent({
     
     const route = useRoute();
     
+
     return { 
       selectedIndex,
       appPages, 
@@ -118,9 +119,10 @@ export default defineComponent({
       trashSharp, 
       warningOutline, 
       warningSharp,
+      // animationCtrl,
       isSelected: (url: string) => url === route.path ? 'selected' : ''
     }
-  }
+  },
 });
 </script>
 
