@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
+import axios from 'axios';
+import store from './store';
 
 import { IonicVue } from '@ionic/vue';
 
@@ -23,8 +25,11 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+axios.defaults.baseURL='http://localhost:8080/api/v1';
+
 const app = createApp(App)
   .use(IonicVue)
+  .use(store)
   .use(router);
   
 router.isReady().then(() => {

@@ -4,7 +4,7 @@
             <h1 class="bg-light py-4 text-info">Product Manage</h1>
         </div>
         
-        <div class="d-flex justify-content-center">
+        <!-- <div class="d-flex justify-content-center">
             <form class="w-50">
                 <input type="file" id="newProductImage" class="box" placeholder="Product Image" accept="image/*" multiple>
                 <input type="text" id="newProductName" class="form-control" placeholder="Product Name" autocomplete="off" >
@@ -18,113 +18,73 @@
                 </div>
             </form>
         </div>
-    <!--Create, update, read and delete button-->
         <div class="d-flex justify-content-center">
             <button class="btn btn-success" @click="addNewProduct()" id="btn-create">Create</button>
-        </div>
+        </div> -->
+        <div class="container">
+             <button @click="changeDisplay(true)" type="button" class="ab-t-r mr-3 btn btn-primary">Add new</button>
+        </div> 
 
-        <div class="container" style="margin-left: -50px;">
+        <div class="container" >
             <table class="table">
                 <thead>
                   <tr>
-                    <!-- <th scope="col">ID</th> -->
                     <th scope="col">Image</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Type</th>
                     <th scope="col">Price</th>
-                    <th scope="col" colspan="2" style="text-align:center">Edit</th>
-                    <!-- <th scope="col">Delete</th> -->
+                    <th scope="col" colspan="2" style="text-align:center">Action</th>
                   </tr>
                 </thead>
-                <tbody  v-for="item in products" :key="item.id">
-                  <tr>
-                    <!-- <th colspan="1" scope="row">{{item.id}}</th> -->
-                    <td><img id="theImage" :src="'https://cdn.tgdd.vn/2021/03/CookProduct/Bac-xiu-la-gi-nguon-goc-va-cach-lam-bac-xiu-thom-ngon-don-gian-tai-nha-0-1200x676.jpg'"></td>
-                    <td>{{item.name}}</td>
-                    <td v-if="item.category_id==1">Đồ uống</td>
-                    <td v-if="item.category_id==2">Thức ăn</td>
-                    <td>{{item.price}}</td>
-                    <td class="btnedit" style="text-align:center"><button type="button" class="btn btn-primary">Edit</button></td>
-                    <td class="btndelete" @click="deleteProduct(item.id)" style="text-align:center"><button type="button" class="btn btn-danger">Delete</button></td>
-                  </tr>
-                  
+                <tbody >
+                  <tr v-for="product in products" :key="product.id">
+                    <td><img id="theImage" :src="product.picture"></td>
+                    <td>{{product.name}}</td>
+                    <td v-if="product.category_id==1">Đồ uống</td>
+                    <td v-if="product.category_id==2">Thức ăn</td>
+                    <td>{{product.price}}</td>
+                    <td class="btnedit" style="text-align:center"><button @click="changeDisplay(true); changeProduct(product)" type="button" class="btn btn-primary">Edit</button></td>
+                    <td class="btndelete" style="text-align:center"><button @click="deleteProduct(product.id)" type="button" class="btn btn-danger">Delete</button></td>
+                  </tr>                  
                 </tbody>
               </table>
+        <FormHandleProduct :product="willChange" @close="changeDisplay" v-if="isDisplay" />      
         </div>
   </ion-page>      
 </template>
 
 <script>
-import axios from 'axios'
-
-const baseURL = "http://localhost:8080/api/v1/products"
-const imageURL = "http://localhost:8080"
+import {mapActions, mapState} from 'vuex';
+import FormHandleProduct from "../components/FormHandleProduct.vue";
 
 export default {
   name: 'ManageShop',
+  components: {
+    FormHandleProduct
+  },
   data() {
     return {
-      products: []
+      isDisplay: false,
+      willChange: {},
     }
   },
-  async created() {
-    try {
-      const result = await axios.get(baseURL);
-      this.products = result.data.content
-    } catch (e) {
-      console.error(e);
-    }
+  created() {
+    this.$store.dispatch("products/getProducts")
+  },
+  computed: {
+    ...mapState("products", ["products"]),
   },
   methods: {
-    async addNewProduct() {
-      let bodyFormData = new FormData();
-      let picture = document.getElementById("newProductImage").files[0];
-      let name = document.getElementById("newProductName").value;
-      let price = document.getElementById("newProductPrice").value;
-      let type = document.getElementById("newProductType").value;
-      let category_id;
-      if (type == "Đồ uống") {
-        category_id = 1;
-      }
-      bodyFormData.append("name", name);
-      bodyFormData.append("picture", picture);
-      bodyFormData.append("price", price);
-      bodyFormData.append("category_id", category_id);
-      console.log(bodyFormData);
-      try {
-      const res = await axios.post(baseURL, bodyFormData, {withCredentials: false})
-      console.log(res)
-      let product = {};
-      product.name = name;
-      product.picture = picture;
-      product.price = price;
-      product.category_id = category_id;
-      this.products.push(product);
-    } catch (e) {
-      console.log(e)
-    }
+  ...mapActions("products", ["getProducts", "deleteProduct"]),
+  changeProduct(product) {
+      this.willChange = product
+      console.log(this.willChange)
     },
-    async deleteProduct(id) {
-      try {
-      const res = await axios.delete(baseURL + "/" + id, {withCredentials: false})
-      console.log(res)
-      const productIndex = this.products.findIndex(p => p.id === id)
-      this.products.splice(productIndex, 1)
-      alert("Product deleted");
-      } catch (e) {
-      console.log(e)
-      }
-    },
-    async getPicture(link) {
-      try {
-      const res = await axios.get(imageURL + "/" + link, {withCredentials: false})
-      // console.log(res.data)
-      return res.data;
-      } catch (e) {
-      console.log(e)
-      }  
-    }
-   }
+  changeDisplay(value){
+      this.willChange = {}
+      this.isDisplay = value
+    },    
+   },
 }
 
 </script>
@@ -133,7 +93,7 @@ export default {
 <style scoped>
   #theImage {
       display: block;
-      max-width:300px;
+      max-width:106px;
       max-height:95px;
       width: auto;
       height: auto;
