@@ -159,13 +159,13 @@ export default {
 <style scoped>
 .button {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
   border-radius: 10px;
   cursor: pointer;
   height: 40px;
-  width: 30%;
+  width: 40%;
 }
 .modal {
   text-align: center;
