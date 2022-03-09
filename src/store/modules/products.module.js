@@ -5,7 +5,7 @@ const state = () => ({
     product: {},
     productsCart: [],
     searchWord: null,
-    filteredProducts: null,
+    clonedProducts: null,
 });
 
 const actions = {
@@ -26,7 +26,7 @@ const actions = {
             console.log(e);
         }
     },
-    filteredProducts ({ commit }, searchWord) {
+    filteringProducts ({ commit }, searchWord) {
         commit('SEARCH_PRODUCT', searchWord)
       },
     deleteProduct: async ({commit}, id) => {
@@ -65,6 +65,7 @@ const actions = {
 const mutations = {
     GET_PRODUCTS(state, products) {
         state.products = products
+        state.clonedProducts = products
     },
     GET_PRODUCT(state, product) {
         state.product = product
@@ -72,13 +73,16 @@ const mutations = {
     DELETE_PRODUCT (state, id) {
         const index = state.products.findIndex(product => product.id === id)
         state.products.splice(index, 1)
+        state.clonedProducts.splice(index, 1)
     },
     CREATE_PRODUCT(state, product) {
         state.products = [product, ...state.products]
+        state.clonedProducts = [product, ...state.clonedProducts]
     },
     UPDATE_PRODUCT(state, updatedProduct) {
       const index = state.products.findIndex(product => product.id === updatedProduct.id)
       state.products[index] = updatedProduct;
+      state.clonedProducts[index] = updatedProduct;
     },
 //     GET_PRODUCT_CART(state, productsCart) {
 //       state.productsCart = productsCart
@@ -86,61 +90,66 @@ const mutations = {
     GET_SEARCH_WORD(state, searchWord) {
         state.searchWord = searchWord
     },
-    GET_FILTERED_PRODUCTS(state, filteredProducts) {
-        state.filteredProducts = filteredProducts
+    GET_FILTERED_PRODUCTS(state, clonedProducts) {
+        state.clonedProducts = clonedProducts
     },
     // ADD_TO_CART(state, product) {     
     //       state.productsCart.push(product);
     // },
     SORT_PRODUCT(state, value) {
       if (value === "upward"){
-        let up =  state.products.sort((a, b) => {
+        let up =  state.clonedProducts.sort((a, b) => {
           return a.price - b.price;
         });
-        console.log(up);
-        return up;
+        state.clonedProducts = up;
       }
-      if (value === "downward")
-        return state.products.sort((a, b) => {
+      if (value === "downward") {
+        let down = state.clonedProducts.sort((a, b) => {
           return b.price - a.price;
         });
-      if (value === "nameup")
-        return state.products.sort((a, b) => {
-            console.log(a)
-          return a.title.localeCompare(b.title);
+        state.clonedProducts = down;
+      }
+      if (value === "nameup") {
+        let nameup = state.clonedProducts.sort((a, b) => {
+          return a.name.localeCompare(b.name);
         });
-      if (value === "namedown")
-        return state.products.sort((a, b) => {
-          return b.title.localeCompare(a.title);
+        state.clonedProducts = nameup;
+      }
+      if (value === "namedown") {
+        let namedown = state.clonedProducts.sort((a, b) => {
+          return b.name.localeCompare(a.name);
         });
-      if (value === "")
-        return state.products.sort((a, b) => {
+        state.clonedProducts = namedown;
+      }
+      if (value === "") {
+        let blank =  state.clonedProducts.sort((a, b) => {
           return a.id - b.id;
         });
+        state.clonedProducts = blank;
+      }
     },
     CATEGORY_PRODUCT(state, value) {
-      if (value === "top"){
-        let top =  state.products.filter((product) => {
+      if (value === "Đồ uống"){
+        let drink = state.products.filter((product) => {
           return product.category_id === 1;
         });
-        state.filteredProducts = top
+        state.clonedProducts = drink
       }
-      if (value === "bottom"){
-        let bottom = state.products.filter((product) => {
+      if (value === "Thức ăn"){
+        let food = state.products.filter((product) => {
           return product.category_id === 2;
         });
-        // return bottom
-        state.filteredProducts = bottom
+        state.clonedProducts = food
       }
       if(value === "") {
-          state.filteredProducts = state.products
+          state.clonedProducts = state.products
       }
     },
     SEARCH_PRODUCT(state, value) {
         state.searchWord = value;
-        state.filteredProducts = state.products.filter(product => {
-            return product.title.toLowerCase().match(value.toLowerCase())
-          })
+        state.clonedProducts = state.products.filter(product => {
+            return product.name.toLowerCase().match(value.toLowerCase())
+          }) 
     },
     
 };
