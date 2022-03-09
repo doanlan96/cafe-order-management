@@ -23,9 +23,66 @@
         </div> -->
         <div class="container">
              <button @click="changeDisplay(true)" type="button" class="ab-t-r mr-3 btn btn-primary">Add new</button>
-        </div> 
+        </div>
 
-        <div class="container" >
+      <!-- filter components -->
+        <div class="filter">
+        <div class="sorter">
+          <form action="/action_page.php">
+            <label for="cars">Sort products:</label>
+            <select name="sorts" id="sorts" @change="sortProducts($event.target.value)">
+              <option value="">---Sort---</option>
+              <option value="upward">Price: Low to High</option>
+              <option value="downward">Price: High to Low</option>
+              <option value="nameup">Name: A -> Z</option>
+              <option value="namedown">Name: Z -> A</option>
+            </select>
+          </form>
+        </div>
+        <div class="searcher">
+          <form action="/action_page.php">
+            <label for="productss">Danh mục:</label>
+            <select name="categories" id="categories" @change="categoryProducts($event.target.value)">
+              <option value="">---Chọn danh mục---</option>
+              <option value="Đồ uống">Đồ uống</option>
+              <option value="Thức ăn">Thức ăn</option>
+            </select>
+          </form>
+        </div>
+        
+            <div class="search">
+              <a
+                class="button"
+                id="searchIcon"
+                data-toggle="collapse"
+                href="#collapseExample"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                <strong
+                  ><i class="fa fa-search" style="font-size: 33px"></i
+                ></strong>
+              </a>
+            </div>  
+      </div>
+
+      <div class="collapse" id="collapseExample">
+      <!-- <label class="header">Tìm kiếm sản phẩm theo tên... </label> -->
+      <div class="wrap">
+        <div class="search">
+          <input
+            type="text"
+            class="searchTerm"
+            placeholder="Type to search for products..."
+            v-model="searchWordd" required
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Table list -->
+        <div class="container" v-if="filteredProducts.length > 0">
             <table class="table">
                 <thead>
                   <tr>
@@ -37,7 +94,7 @@
                   </tr>
                 </thead>
                 <tbody >
-                  <tr v-for="product in products" :key="product.id">
+                  <tr v-for="product in filteredProducts" :key="product.id">
                     <td><img id="theImage" :src="product.picture"></td>
                     <td>{{product.name}}</td>
                     <td v-if="product.category_id==1">Đồ uống</td>
@@ -51,6 +108,10 @@
         <FormHandleProduct :product="willChange" @close="changeDisplay" v-if="isDisplay" />
         <ConfirmDeleteModal :product_id="product_id_to_del" @close="changeDisplayConfirmModal" v-if="isDisplayConfirmModal" />          
 
+        </div>
+
+        <div class="container" style="text-align: center; font-size: 30px;  " v-else>
+          No item matched
         </div>    
   </ion-page>      
 </template>
@@ -78,10 +139,22 @@ export default {
     this.$store.dispatch("products/getProducts")
   },
   computed: {
-    ...mapState("products", ["products"]),
+    ...mapState("products", ["products", "clonedProducts", "searchWord"]),
+    filteredProducts () {
+      let a = (this.clonedProducts || this.products)
+      return a
+    },
+    searchWordd: {
+      get () {
+        return this.searchWord
+      },
+      set (value) {
+        this.$store.dispatch('products/filteringProducts', value)
+      }
+    }    
   },
   methods: {
-  ...mapActions("products", ["getProducts", "deleteProduct"]),
+  ...mapActions("products", ["getProducts", "deleteProduct", "filteringProducts"]),
   changeProduct(product) {
       this.willChange = product
     },  
@@ -95,14 +168,82 @@ export default {
   changeDisplayConfirmModal(value) {
     this.product_id_to_del = ''
     this.isDisplayConfirmModal = value
-  }      
-   },
+  },
+  sortProducts(value) {
+    this.$store.commit('products/SORT_PRODUCT', value)
+  },
+  categoryProducts(value) {
+    this.$store.commit('products/CATEGORY_PRODUCT', value)
+  },      
+  },
 }
 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+.filter {
+  padding-top: 30px;
+  margin: 0 auto;
+  max-width: 80%;
+}
+
+.collapse {
+  margin: auto;
+  max-width: 80%;
+  height: 10%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f4fab9;
+}
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+.searchTerm {
+  width: 100%;
+  border: 3px solid #d88d00;
+  padding: 5px;
+  height: 40px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+.searchButton {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #d88d00;
+  background: #d88d00;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  // margin-top: 30px;
+  width: 30%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+  .events {
+    margin-top: 100px;
+    text-align: center;
+  }
+  .filter {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+  }
+
+
   #theImage {
       display: block;
       max-width:106px;
@@ -119,9 +260,9 @@ export default {
       padding: .3em 2.4em;
   }
 
-  .container table {
-      margin: 1em 3em;
-  }
+  // .container table {
+  //     margin: 1em 3em;
+  // }
 
   table .btnedit {
       color: lightgreen;
@@ -133,84 +274,6 @@ export default {
       cursor: pointer;
   }
 
-.modal-confirm {		
-	color: #636363;
-	width: 400px;
-}
-.modal-confirm .modal-content {
-	padding: 20px;
-	border-radius: 5px;
-	border: none;
-	text-align: center;
-	font-size: 14px;
-}
-.modal-confirm .modal-header {
-	border-bottom: none;   
-	position: relative;
-}
-.modal-confirm h4 {
-	text-align: center;
-	font-size: 26px;
-	margin: 30px 0 -10px;
-}
-.modal-confirm .close {
-	position: absolute;
-	top: -5px;
-	right: -2px;
-}
-.modal-confirm .modal-body {
-	color: #999;
-}
-.modal-confirm .modal-footer {
-	border: none;
-	text-align: center;		
-	border-radius: 5px;
-	font-size: 13px;
-	padding: 10px 15px 25px;
-}
-.modal-confirm .modal-footer a {
-	color: #999;
-}		
-.modal-confirm .icon-box {
-	width: 80px;
-	height: 80px;
-	margin: 0 auto;
-	border-radius: 50%;
-	z-index: 9;
-	text-align: center;
-	border: 3px solid #f15e5e;
-}
-.modal-confirm .icon-box i {
-	color: #f15e5e;
-	font-size: 46px;
-	display: inline-block;
-	margin-top: 13px;
-}
-.modal-confirm .btn, .modal-confirm .btn:active {
-	color: #fff;
-	border-radius: 4px;
-	background: #60c7c1;
-	text-decoration: none;
-	transition: all 0.4s;
-	line-height: normal;
-	min-width: 120px;
-	border: none;
-	min-height: 40px;
-	border-radius: 3px;
-	margin: 0 5px;
-}
-.modal-confirm .btn-secondary {
-	background: #c1c1c1;
-}
-.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
-	background: #a8a8a8;
-}
-.modal-confirm .btn-danger {
-	background: #f15e5e;
-}
-.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
-	background: #ee3535;
-}
 .trigger-btn {
 	display: inline-block;
 	margin: 100px auto;

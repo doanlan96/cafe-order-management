@@ -64,7 +64,7 @@
                   <button class="btn btn-outline-secondary" @click="close()">Back</button>
                 </div>
                 <div class="col-6">
-                  <button class="btn btn-outline-success" @click.prevent="close(); submit()">Submit</button>
+                  <button class="btn btn-outline-success" @click.prevent="submit()">Submit</button>
                 </div>
               </div>
             </Form>
@@ -133,10 +133,15 @@ export default {
         category_id: this.currentProduct.currentCategory.value,
       }
       if (this.product.id) {
-
+        if (productSubmitted.name != '' && productSubmitted.price != '' && productSubmitted.picture != '') {
         this.updateProduct({id: this.product.id, product: productSubmitted})
+        this.close();
+        }
       } else {
+        if (productSubmitted.name != '' && productSubmitted.price != '' && productSubmitted.picture != '') {
         this.createProduct(productSubmitted)
+        this.close();
+        }
       }
     },
     close: function () {
