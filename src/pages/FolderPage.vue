@@ -5,9 +5,19 @@
         <ion-title></ion-title>
         <!-- <ion-title>{{ $route.params.id }}</ion-title> -->
       </ion-toolbar>
-        <div>
-            User setting
+        <div style="width:20%; display: flex; justify-content:space-around; padding-top: 10px;">
+          <router-link to="Login Page">   
+            <button type="button" class="btn btn-success">Đăng nhập</button>
+          </router-link>  
         </div>
+        <!-- <div style="width:20%; display: flex; justify-content:space-around; padding-top: 10px;">
+          <router-link to="Profile Page">   
+            <button type="button" class="btn btn-success">Edit hồ sơ</button>
+          </router-link>
+          <div>
+            | Hello, Admin ^^
+          </div>    
+        </div> -->
     </ion-header>
     
     <ion-content :fullscreen="true">
@@ -16,6 +26,7 @@
       <ManageOrder v-if="$route.params.id=='Order'"/>
       <OrderInPlace v-if="$route.params.id=='Order In Place'"/>
       <OrderTakeAway v-if="$route.params.id=='Order Take Away'"/>
+      <LoginPage v-if="$route.params.id=='Login Page'" />
     </ion-content>
   </ion-page>
 </template>
@@ -28,10 +39,12 @@ import ManageShop from './ManageShop.vue';
 import DashBoard from './Dashboard.vue';
 import OrderInPlace from './OrderInPlace.vue';
 import OrderTakeAway from './OrderTakeAway.vue';
+import LoginPage from './LoginPage.vue';
 
 export default defineComponent({
   name: 'FolderPage',
   components: {
+    LoginPage,
     OrderTakeAway,
     OrderInPlace,
     DashBoard,
