@@ -47,7 +47,7 @@
             <ion-col size="4">
                 <ion-card >
                     <ion-card-header>
-                    <ion-card-title>Total Orders</ion-card-title>
+                    <ion-card-title>Tổng số đơn</ion-card-title>
                     </ion-card-header>
 
                     <ion-card-content>
@@ -58,7 +58,7 @@
             <ion-col size="4">
                 <ion-card>
                     <ion-card-header>
-                    <ion-card-title>Total Delivers</ion-card-title>
+                    <ion-card-title>Tổng số đơn ship</ion-card-title>
                     </ion-card-header>
 
                     <ion-card-content>
@@ -69,7 +69,7 @@
             <ion-col size="4">
                 <ion-card>
                     <ion-card-header>
-                    <ion-card-title>Total Income (VND)</ion-card-title>
+                    <ion-card-title>Tổng thu nhập (VND)</ion-card-title>
                     </ion-card-header>
 
                     <ion-card-content>
@@ -82,7 +82,7 @@
             <ion-col size="9">
                 <ion-card>
                     <ion-card-header>
-                    <ion-card-title>Date</ion-card-title>
+                    <ion-card-title>Lịch</ion-card-title>
                     </ion-card-header>
 
                     <ion-card-content>
@@ -100,7 +100,7 @@
             <ion-col size="3">
                 <ion-card>
                     <ion-card-header>
-                    <ion-card-title>Date</ion-card-title>
+                    <ion-card-title>Lịch</ion-card-title>
                     </ion-card-header>
 
                     <ion-card-content>

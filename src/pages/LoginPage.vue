@@ -8,7 +8,7 @@
           'url(' + require('@/assets/login-background.jpg') + ')',
       }"
     >
-      <h2 class="l-text2 t-center">Login</h2>
+      <h2 class="l-text2 t-center">Đăng nhập</h2>
     </section>
 
     <!-- content page -->
@@ -25,7 +25,7 @@
                   v-model="user.user_name"
                 name="user_name"
                 type="text"
-                placeholder="Username"
+                placeholder="Tài khoản"
                 class="sizefull s-text7 p-l-22 p-r-22"
                 :disabled="isLoading"
               />
@@ -38,7 +38,7 @@
                   v-model="user.password"
                 name="password"
                 type="password"
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 class="sizefull s-text7 p-l-22 p-r-22"
                 :disabled="isLoading"
               />
@@ -63,7 +63,7 @@
                 :disabled="isLoading"
               >
                 <span v-show="isLoading" data-loader="ball-scale"></span>
-                Login
+                Đăng nhập
               </button>
             </div>
           </Form>
@@ -73,7 +73,7 @@
 
           <p class="text-center">
             <router-link to="Register Page"
-              >Don't have an account yet? Register now!
+              >Đăng kí ngay!
             </router-link>
           </p>
         </div>

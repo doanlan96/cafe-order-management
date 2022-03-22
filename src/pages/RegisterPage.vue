@@ -8,7 +8,7 @@
           'url(' + require('@/assets/login-background.jpg') + ')',
       }"
     >
-      <h2 class="l-text2 t-center">Register account</h2>
+      <h2 class="l-text2 t-center">Đăng kí tài khoản</h2>
     </section>
 
     <!-- content page -->
@@ -26,7 +26,7 @@
                     v-model="user.full_name"
                   name="full_name"
                   type="text"
-                  placeholder="Your Full Name"
+                  placeholder="Họ và Tên"
                   class="sizefull s-text7 p-l-22 p-r-22"
                   :disabled="isLoading"
                 />
@@ -42,7 +42,7 @@
                     v-model="user.user_name"
                   name="user_name"
                   type="text"
-                  placeholder="Your User Name"
+                  placeholder="Tài khoản"
                   class="sizefull s-text7 p-l-22 p-r-22"
                   :disabled="isLoading"
                 />
@@ -58,7 +58,7 @@
                     v-model="user.password"
                   name="password"
                   type="password"
-                  placeholder="Password"
+                  placeholder="Mật khẩu"
                   class="sizefull s-text7 p-l-22 p-r-22"
                   :disabled="isLoading"
                 />
@@ -71,7 +71,7 @@
                     v-model="user.confirm_password"
                   name="confirm_password"
                   type="password"
-                  placeholder="Confirm Password"
+                  placeholder="Nhập lại mật khẩu"
                   class="sizefull s-text7 p-l-22 p-r-22"
                   :disabled="isLoading"
                 />
@@ -89,7 +89,7 @@
                   :disabled="isLoading"
                 >
                   <span v-show="isLoading" data-loader="ball-scale"></span>
-                  Register
+                  Đăng kí
                 </button>
               </div>
             </Form>
@@ -108,7 +108,7 @@
             <p class="text-center">{{ message }}</p>
 
             <router-link to="Login Page"
-              ><h4 class="text-center">Go to Login Page »</h4></router-link
+              ><h4 class="text-center">Đi đến trang đăng nhập »</h4></router-link
             >
           </template>
         </div>
@@ -136,15 +136,17 @@ export default {
     const schema = yup.object().shape({
       full_name: yup
         .string()
-        .required("Your full name is required!"),
+        .min(6, "Họ và Tên tối thiểu phải có 6 kí tự!")
+        .required("Họ và Tên là bắt buộc!"),
       user_name: yup
         .string()
-        .required("Your user name is required!"),
+        .min(6, "Tài khoản tối thiểu phải có 6 kí tự!")
+        .required("Tài khoản là bắt buộc"),
       password: yup
         .string()
-        .required("Password is required!")
-        .min(6, "Password must be at least 6 characters!")
-        .max(40, "Password must be maximum 40 characters!"),
+        .required("Mật khẩu là bắt buộc")
+        .min(6, "Mật khẩu tối thiểu 6 kí tự")
+        .max(40, "Mật khẩu tối đa 40 kí tự!"),
       confirm_password: yup
       .string()
       .oneOf([Yup.ref('password'), null], 'Passwords must match')

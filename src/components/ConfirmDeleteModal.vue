@@ -1,18 +1,18 @@
 <template>
   <div id="myModal" class="modal">
     <div class="modal-content">
-      <h1>Are you sure ?</h1>
-      <p>Click confirm to complete this process, back to cancel !</p>
+      <h1>Bạn chắc chắn chứ ?</h1>
+      <p>Xóa sản phẩm khỏi hệ thống của cửa hàng!</p>
       <div class="row">
         <div class="col-12">
           <div class="container">
             <Form >
               <div style="margin-top: 20px" class="button row m-t-30" >
                 <div class="col-6">
-                  <button class="btn btn-outline-secondary" @click="close()">Back</button>
+                  <button class="btn btn-outline-secondary" @click="close()">Trở lại</button>
                 </div>
                 <div class="col-6">
-                  <button class="btn btn-outline-danger" @click.prevent="close(); deleteProduct(product_id)">Delete</button>
+                  <button class="btn btn-outline-danger" @click.prevent="close(); deleteProduct(product_id)">Xóa</button>
                 </div>
               </div>
             </Form>

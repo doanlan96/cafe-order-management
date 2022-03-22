@@ -1,7 +1,7 @@
 <template>
   <ion-page>   
         <div class="container text-center">
-            <h1 class="bg-light py-4 text-info">Product Manage</h1>
+            <h1 class="bg-light py-4 text-info">Quản lí món</h1>
         </div>
         
         <!-- <div class="d-flex justify-content-center">
@@ -22,20 +22,20 @@
             <button class="btn btn-success" @click="addNewProduct()" id="btn-create">Create</button>
         </div> -->
         <div class="container">
-             <button @click="changeDisplay(true)" type="button" class="ab-t-r mr-3 btn btn-primary">Add new</button>
+             <button @click="changeDisplay(true)" type="button" class="ab-t-r mr-3 btn btn-primary">Thêm món mới</button>
         </div>
 
       <!-- filter components -->
         <div class="filter">
         <div class="sorter">
           <form action="/action_page.php">
-            <label for="cars">Sort products:</label>
+            <label for="cars">Sắp xếp theo:</label>
             <select name="sorts" id="sorts" @change="sortProducts($event.target.value)">
-              <option value="">---Sort---</option>
-              <option value="upward">Price: Low to High</option>
-              <option value="downward">Price: High to Low</option>
-              <option value="nameup">Name: A -> Z</option>
-              <option value="namedown">Name: Z -> A</option>
+              <option value="">---Mặc định---</option>
+              <option value="upward">Giá: Thấp đến Cao</option>
+              <option value="downward">Giá: Cao đến Thấp</option>
+              <option value="nameup">Tên: A -> Z</option>
+              <option value="namedown">Tên: Z -> A</option>
             </select>
           </form>
         </div>
@@ -43,7 +43,7 @@
           <form action="/action_page.php">
             <label for="productss">Danh mục:</label>
             <select name="categories" id="categories" @change="categoryProducts($event.target.value)">
-              <option value="">---Chọn danh mục---</option>
+              <option value="">---Mặc định---</option>
               <option value="Đồ uống">Đồ uống</option>
               <option value="Thức ăn">Thức ăn</option>
             </select>
@@ -86,11 +86,11 @@
             <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Price</th>
-                    <th scope="col" colspan="2" style="text-align:center">Action</th>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Tên món</th>
+                    <th scope="col">Danh mục</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col" colspan="2" style="text-align:center">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody >
@@ -100,8 +100,8 @@
                     <td v-if="product.category_id==1">Đồ uống</td>
                     <td v-if="product.category_id==2">Thức ăn</td>
                     <td>{{product.price}}</td>
-                    <td class="btnedit" style="text-align:center"><button @click="changeDisplay(true); changeProduct(product)" type="button" class="btn btn-primary">Edit</button></td>
-                    <td class="btndelete" style="text-align:center"><button @click="changeDisplayConfirmModal(true); changeProductIDToDelete(product.id)" type="button" class="btn btn-danger">Delete</button></td>
+                    <td class="btnedit" style="text-align:center"><button @click="changeDisplay(true); changeProduct(product)" type="button" class="btn btn-primary">Sửa món</button></td>
+                    <td class="btndelete" style="text-align:center"><button @click="changeDisplayConfirmModal(true); changeProductIDToDelete(product.id)" type="button" class="btn btn-danger">Xóa món</button></td>
                   </tr>                  
                 </tbody>
               </table>
@@ -111,7 +111,7 @@
         </div>
 
         <div class="container" style="text-align: center; font-size: 30px;  " v-else>
-          No item matched
+          Không có món nào thỏa mãn điều kiện !
         </div>    
   </ion-page>      
 </template>
