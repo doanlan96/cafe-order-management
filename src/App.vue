@@ -59,25 +59,25 @@ export default defineComponent({
         mdIcon: mailSharp
       },
       {
-        title: 'Online Delivery',
+        title: 'Đơn hàng App',
         url: '/folder/Online Delivery',
         iosIcon: paperPlaneOutline,
         mdIcon: paperPlaneSharp
       },
       {
-        title: 'Statistic',
+        title: 'Báo cáo thống kê',
         url: '/folder/Statistic',
         iosIcon: heartOutline,
         mdIcon: heartSharp
       },
       {
-        title: 'Manage shop',
+        title: 'Quản lí món',
         url: '/folder/Manage Shop',
         iosIcon: archiveOutline,
         mdIcon: archiveSharp
       },
       {
-        title: 'Settings',
+        title: 'Cài đặt',
         url: '/folder/Settings',
         iosIcon: trashOutline,
         mdIcon: trashSharp

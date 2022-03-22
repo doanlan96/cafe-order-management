@@ -1,7 +1,7 @@
 <template>
   <div id="myModal" class="modal">
     <div class="modal-content">
-      <h1>{{product.id ? currentProduct.name : 'Add new product'}}</h1>
+      <h1>{{product.id ? currentProduct.name : 'Thêm sản phẩm mới'}}</h1>
       <div class="row">
         <div class="col-4">
           <div class="profile-img">
@@ -17,7 +17,7 @@
                     v-model="currentProduct.name"
                     name="name"
                     type="text"
-                    placeholder="Product's name"
+                    placeholder="Tên món"
                     class="sizefull s-text7 p-l-22 p-r-22"
                 />
               </div>
@@ -28,7 +28,7 @@
                     v-model="currentProduct.picture"
                     name="picture"
                     type="text"
-                    placeholder="Product's picture"
+                    placeholder="Ảnh"
                     class="sizefull s-text7 p-l-22 p-r-22"
                 />
               </div>
@@ -40,7 +40,7 @@
                         v-model="currentProduct.price"
                         name="price"
                         type="number"
-                        placeholder="Product's price"
+                        placeholder="Giá"
                         class="sizefull s-text7 p-l-22 p-r-22"
                     />
                   </div>
@@ -61,10 +61,10 @@
               </div>
               <div style="margin-top: 20px" class="button row m-t-30" >
                 <div class="col-6">
-                  <button class="btn btn-outline-secondary" @click="close()">Back</button>
+                  <button class="btn btn-outline-secondary" @click="close()">Trở lại</button>
                 </div>
                 <div class="col-6">
-                  <button class="btn btn-outline-success" @click.prevent="submit()">Submit</button>
+                  <button class="btn btn-outline-success" @click.prevent="submit()">Gửi</button>
                 </div>
               </div>
             </Form>
@@ -104,13 +104,13 @@ export default {
     const schema = yup.object().shape({
       name: yup
           .string()
-          .required("Product's name is required"),
+          .required("Tên món là bắt buộc"),
       picture: yup
           .string()
-          .required("Product's picture is required"),
+          .required("Ảnh là bắt buộc"),
       price: yup
           .number()
-          .required("Product's price is required"),
+          .required("Giá là bắt buộc"),
     })
     return {
       schema,
