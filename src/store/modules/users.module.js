@@ -30,6 +30,7 @@ const actions = {
   async login({ commit }, login_form) {
     try {
       const res = await axios.post("/login", login_form, {withCredentials: false})
+      if (res.data === "") throw new Error("User name or password is wrong!");
       commit("setLoginSuccess", true);
       commit("setLoginMessage", "");
       commit("setUser", res.data);
