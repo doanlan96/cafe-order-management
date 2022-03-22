@@ -25,7 +25,7 @@
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane} from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import {clipboardOutline, clipboardSharp, archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import {personAddOutline, personAddSharp, clipboardOutline, clipboardSharp, archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'App',
@@ -75,7 +75,7 @@ export default defineComponent({
         url: '/folder/Manage Shop',
         iosIcon: archiveOutline,
         mdIcon: archiveSharp
-      },
+      },     
       {
         title: 'Cài đặt',
         url: '/folder/Settings',
@@ -103,6 +103,8 @@ export default defineComponent({
       selectedIndex,
       appPages, 
       labels,
+      personAddOutline,
+      personAddSharp,
       clipboardSharp,
       clipboardOutline,
       archiveOutline, 

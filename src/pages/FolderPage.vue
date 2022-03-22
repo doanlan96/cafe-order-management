@@ -7,10 +7,13 @@
       </ion-toolbar>
         <div style="width:20%; display: flex; justify-content:space-around; padding-top: 10px;" v-if="!isLoginSuccess">
           <router-link to="Login Page">   
-            <button type="button" class="btn btn-success">Đăng nhập / Đăng kí</button>
+            <button type="button" class="btn btn-success">Đăng nhập</button>
           </router-link>  
         </div>
         <div style="width:20%; display: flex; justify-content:space-around; padding-top: 10px;" v-else>
+          <!-- <router-link to="Register Page">   
+            <button type="button" class="btn btn-success">Thêm nhân viên mới</button>
+          </router-link>           -->
           <router-link to="Profile Page">   
             <button type="button" class="btn btn-success">Edit hồ sơ</button>
           </router-link>
@@ -25,7 +28,7 @@
     
     <ion-content :fullscreen="true">
       <DashBoard v-if="$route.params.id=='Dashboard'" />
-      <ManageShop v-if="$route.params.id=='Manage Shop'"/>
+      <ManageShop v-if="user.role==='admin' && $route.params.id=='Manage Shop'"/>
       <ManageOrder v-if="$route.params.id=='Order'"/>
       <OrderInPlace v-if="$route.params.id=='Order In Place'"/>
       <OrderTakeAway v-if="$route.params.id=='Order Take Away'"/>
