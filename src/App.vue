@@ -15,6 +15,16 @@
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
+          <ion-list>
+              <ion-menu-toggle auto-hide="false" >
+                <a type="button" href="/folder/Login Page" @click="logout()" style="text-decoration: none">               
+                  <ion-item lines="none" detail="false" class="hydrated">
+                    <ion-icon slot="start" :ios="exitOutline" :md="exitSharp"></ion-icon>
+                    <ion-label>Đăng xuất</ion-label>
+                  </ion-item>
+                </a>                     
+              </ion-menu-toggle> 
+          </ion-list>
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content" ></ion-router-outlet>
@@ -26,7 +36,7 @@
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane} from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import {personAddOutline, personAddSharp, clipboardOutline, clipboardSharp, archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import {keyOutline, keySharp, exitOutline, exitSharp, personAddOutline, personAddSharp, clipboardOutline, clipboardSharp, archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 import { mapState, mapMutations } from "vuex";
 import LoginPage from './pages/LoginPage.vue';
 
@@ -104,6 +114,12 @@ export default defineComponent({
         iosIcon: warningOutline,
         mdIcon: warningSharp
       },
+      {
+        title: 'Đổi mật khẩu',
+        url: '/folder/Change Password',
+        iosIcon: keyOutline,
+        mdIcon: keySharp
+      },      
     ];
     const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
     
@@ -119,6 +135,10 @@ export default defineComponent({
       selectedIndex,
       appPages, 
       labels,
+      keyOutline,
+      keySharp,
+      exitOutline,
+      exitSharp,
       personAddOutline,
       personAddSharp,
       clipboardSharp,
@@ -142,7 +162,7 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapMutations("users", ["getUserExists"]),
+    ...mapMutations("users", ["getUserExists", "logout"]),
   }
 });
 </script>
