@@ -97,20 +97,20 @@
             <br />
             <hr />
 
-            <p class="text-center">
+            <!-- <p class="text-center">
               <router-link to="Login Page"
                 >Have an account? Login now!
               </router-link>
-            </p>
+            </p> -->
           </template>
 
-          <template v-else>
+          <!-- <template v-else>
             <p class="text-center">{{ message }}</p>
 
             <router-link to="Login Page"
               ><h4 class="text-center">Đi đến trang đăng nhập »</h4></router-link
             >
-          </template>
+          </template> -->
         </div>
       </div>
     </section>
@@ -124,7 +124,7 @@ import * as yup from "yup";
 import * as Yup from "yup";
 
 export default {
-  name: "RegisterPage",
+  name: "RegisterEmployee",
 
   components: {
     Form,

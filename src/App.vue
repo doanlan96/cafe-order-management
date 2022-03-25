@@ -1,5 +1,6 @@
 <template>
-  <ion-app>
+  <LoginPage v-if="!isLoginSuccess"/>
+  <ion-app v-else>
     <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay" style="max-width: 15%;">
         <ion-content>
@@ -26,10 +27,13 @@ import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader,
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import {personAddOutline, personAddSharp, clipboardOutline, clipboardSharp, archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { mapState, mapMutations } from "vuex";
+import LoginPage from './pages/LoginPage.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
+    LoginPage,
     IonApp, 
     IonContent, 
     IonIcon, 
@@ -42,6 +46,12 @@ export default defineComponent({
     IonNote, 
     IonRouterOutlet, 
     IonSplitPane,
+  },
+  created() {
+    this.getUserExists();
+  },
+  computed: {
+    ...mapState("users", ["user", "isLoginSuccess"]),
   },
   setup() {
     const selectedIndex = ref(0);
@@ -75,6 +85,12 @@ export default defineComponent({
         url: '/folder/Manage Shop',
         iosIcon: archiveOutline,
         mdIcon: archiveSharp
+      },
+      {
+        title: 'Thêm nhân viên mới',
+        url: '/folder/Register Staff',
+        iosIcon: personAddOutline,
+        mdIcon: personAddSharp
       },     
       {
         title: 'Cài đặt',
@@ -125,6 +141,9 @@ export default defineComponent({
       isSelected: (url: string) => url === route.path ? 'selected' : ''
     }
   },
+  methods: {
+    ...mapMutations("users", ["getUserExists"]),
+  }
 });
 </script>
 

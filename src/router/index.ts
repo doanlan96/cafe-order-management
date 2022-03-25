@@ -16,6 +16,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import ('../pages/ManageShop.vue')
   },
   {
+    path: '/registeremployee',
+    component: () => import ('../pages/RegisterEmployee.vue')
+  },
+  {
     path: '/order',
     component: () => import ('../pages/ManageOrder.vue')
   },

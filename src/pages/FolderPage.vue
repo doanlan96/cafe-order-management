@@ -13,12 +13,12 @@
         <div style="width:20%; display: flex; justify-content:space-around; padding-top: 10px;" v-else>
           <!-- <router-link to="Register Page">   
             <button type="button" class="btn btn-success">Thêm nhân viên mới</button>
-          </router-link>           -->
+          </router-link>           --> 
           <router-link to="Profile Page">   
             <button type="button" class="btn btn-success">Edit hồ sơ</button>
           </router-link>
           <!-- <router-link to="Dashboard"> -->
-            <a type="button" class="btn btn-danger" href="/" @click="logout()">Đăng xuất</a>
+            <a type="button" class="btn btn-danger" href="/folder/Login Page" @click="logout()">Đăng xuất</a>
           <!-- </router-link>   -->
           <div>
             | Hello, {{user.full_name}}
@@ -32,8 +32,8 @@
       <ManageOrder v-if="$route.params.id=='Order'"/>
       <OrderInPlace v-if="$route.params.id=='Order In Place'"/>
       <OrderTakeAway v-if="$route.params.id=='Order Take Away'"/>
-      <LoginPage v-if="$route.params.id=='Login Page'" />
-      <RegisterPage v-if="$route.params.id=='Register Page'" />
+      <RegisterStaff v-if="user.role==='admin' && $route.params.id=='Register Staff'"/>
+      <!-- <RegisterEmployee v-if="$route.params.id=='Register Employee'" /> -->
     </ion-content>
   </ion-page>
 </template>
@@ -47,14 +47,14 @@ import ManageShop from './ManageShop.vue';
 import DashBoard from './Dashboard.vue';
 import OrderInPlace from './OrderInPlace.vue';
 import OrderTakeAway from './OrderTakeAway.vue';
-import LoginPage from './LoginPage.vue';
-import RegisterPage from './RegisterPage.vue';
+// import RegisterEmployee from './RegisterEmployee.vue';
+import RegisterStaff from './RegisterStaff.vue';
 
 export default defineComponent({
   name: 'FolderPage',
   components: {
-    RegisterPage,
-    LoginPage,
+    // RegisterEmployee,
+    RegisterStaff,
     OrderTakeAway,
     OrderInPlace,
     DashBoard,

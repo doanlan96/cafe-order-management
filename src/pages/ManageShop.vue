@@ -1,7 +1,7 @@
 <template>
   <ion-page>   
         <div class="container text-center">
-            <h1 class="bg-light py-4 text-info">Quản lí món</h1>
+            <h1 class="bg-light py-4 text-success">Quản lí món</h1>
         </div>
         
         <!-- <div class="d-flex justify-content-center">
@@ -22,7 +22,7 @@
             <button class="btn btn-success" @click="addNewProduct()" id="btn-create">Create</button>
         </div> -->
         <div class="container">
-             <button @click="changeDisplay(true)" type="button" class="ab-t-r mr-3 btn btn-primary">Thêm món mới</button>
+             <button @click="changeDisplay(true)" type="button" class="ab-t-r mr-3 btn btn-success">Thêm món mới</button>
         </div>
 
       <!-- filter components -->
@@ -100,7 +100,7 @@
                     <td v-if="product.category_id==1">Đồ uống</td>
                     <td v-if="product.category_id==2">Thức ăn</td>
                     <td>{{product.price}}</td>
-                    <td class="btnedit" style="text-align:center"><button @click="changeDisplay(true); changeProduct(product)" type="button" class="btn btn-primary">Sửa món</button></td>
+                    <td class="btnedit" style="text-align:center"><button @click="changeDisplay(true); changeProduct(product)" type="button" class="btn btn-success">Sửa món</button></td>
                     <td class="btndelete" style="text-align:center"><button @click="changeDisplayConfirmModal(true); changeProductIDToDelete(product.id)" type="button" class="btn btn-danger">Xóa món</button></td>
                   </tr>                  
                 </tbody>
