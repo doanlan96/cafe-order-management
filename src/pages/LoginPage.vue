@@ -71,11 +71,11 @@
           <br />
           <hr />
 
-          <p class="text-center">
+          <!-- <p class="text-center">
             <router-link to="Register Page"
               >Đăng kí ngay!
             </router-link>
-          </p>
+          </p> -->
         </div>
       </div>
     </section>
