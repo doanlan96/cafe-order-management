@@ -7,10 +7,10 @@ const state = () => ({
   loginMessage: "",
   isRegisterSuccess: false,
 //   isUpdateSuccess: false,
-//   isChangePassSuccess: false,
+  isChangePassSuccess: false,
   registerMessage: "",
 //   updateMessage: "",
-//   changePassMessage: "",
+  changePassMessage: "",
 //   isShowUserDropdown: false,
   isDisplayForm: false,
 });
@@ -43,14 +43,6 @@ const actions = {
       );
     }
   },
-//   async logout({ commit}){
-//     try {
-//       await axios.post("logout","hello", {withCredentials: false});
-//       await commit("logout")
-//     } catch (e) {
-//       console.log(e)
-//     }
-// },
 
   async register({ commit }, register_form) {
     try {
@@ -64,6 +56,19 @@ const actions = {
       commit("setRegisterSuccess", false);
     }
   },
+
+  async changePassword({commit}, payload) {
+    try {
+        const res = await axios.put(`/changepass/${payload.id}`, payload.passwords, {withCredentials: false});
+        console.log(res);
+        commit("setChangePassSuccess", true);
+        commit("setChangePassMessage", "Thay đổi mật khẩu thành công!");
+    } catch (e) {
+      // console.log(e)
+      commit("setChangePassMessage", e.message === "Request failed with status code 400" ? "Mật khẩu hiện tại không đúng" : "Change password is failed");
+      commit("setChangePassSuccess", false);
+    }
+  }
 };
 
 const mutations = {
@@ -80,6 +85,14 @@ const mutations = {
 
   setLoginMessage(state, message) {
     state.loginMessage = message;
+  },
+
+  setChangePassSuccess(state, status) {
+    state.isChangePassSuccess = status;
+  },
+
+  setChangePassMessage(state, message) {
+    state.changePassMessage = message;
   },
 
   setRegisterSuccess(state, status) {
