@@ -30,7 +30,7 @@ const actions = {
   async login({ commit }, login_form) {
     try {
       const res = await axios.post("/login", login_form, {withCredentials: false})
-      if (res.data === "") throw new Error("User name or password is wrong!");
+      if (res.data === "") throw new Error("Tên đăng nhập hoặc mật khẩu không đúng!");
       commit("setLoginSuccess", true);
       commit("setLoginMessage", "");
       commit("setUser", res.data);
@@ -39,7 +39,7 @@ const actions = {
       console.log(error)
       commit("setLoginSuccess", false);
       commit(
-          "setLoginMessage", "User name or password is wrong!"
+          "setLoginMessage", "Tên đăng nhập hoặc mật khẩu không đúng!"
       );
     }
   },
@@ -52,7 +52,7 @@ const actions = {
       commit("setRegisterMessage", "");
     } catch (e) {
       console.log(e)
-      commit("setRegisterMessage", e.message === "Request failed with status code 400" ? "Username is already in use" : "Create new account is failed");
+      commit("setRegisterMessage", e.message === "Request failed with status code 400" ? "Tên đăng nhập đã tồn tại" : "Create new account is failed");
       commit("setRegisterSuccess", false);
     }
   },

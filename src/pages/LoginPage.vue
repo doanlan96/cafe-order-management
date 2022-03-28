@@ -8,7 +8,7 @@
           'url(' + require('@/assets/login-background.jpg') + ')',
       }"
     >
-      <h2 class="l-text2 t-center">Đăng nhập</h2>
+      <h2 class="l-text2 t-center" style="color:black">Đăng nhập</h2>
     </section>
 
     <!-- content page -->
@@ -100,10 +100,10 @@ export default {
     const schema = yup.object().shape({
       user_name: yup
         .string()
-        .required("Username is required!"),
+        .required("Tên đăng nhập là bắt buộc!"),
       password: yup
         .string()
-        .required("Password is required!"),
+        .required("Mật khẩu là bắt buộc!"),
     });
 
     return {
