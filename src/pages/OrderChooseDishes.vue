@@ -1,6 +1,6 @@
 <template>
 <div>
-    <button type="button" @click="goBackAndDeleteLastestOrder(); $router.go(-1);">Trở lại</button>
+    <button type="button" @click="goBackAndDeleteLastestOrder(); close();">Trở lại</button>
 </div>
 <div style="display:flex">
        <!-- section de chia man hinh ra 2 phan left & right -->
@@ -13,7 +13,7 @@
                 <div class="s-title">
                     <div class="searchContainer">
                         <div class="fa fa-search searchIcon"></div>
-                        <input id="searchbox" class="searchbar" type="text" placeholder="Tìm kiếm sản phẩm theo tên..." v-model="searchWordd" required />
+                        <input id="searchbox" class="searchbar" type="text" v-model="searchWordd" required>
                     </div>
                 </div>
             </div>
@@ -29,9 +29,8 @@
                         <button class="form__button" @click.prevent="categoryProducts('Nước hoa quả')">Nước hoa quả</button>
                         <button class="form__button" @click.prevent="categoryProducts('Cafe')">Cafe</button>
                         <button class="form__button" @click.prevent="categoryProducts('Trà sữa')">Trà sữa</button>
-                        <button class="form__button" @click.prevent="categoryProducts('Đồ ăn vặt')">Đồ ăn vặt</button>                 
+                        <button class="form__button" @click.prevent="categoryProducts('Đồ ăn vặt')">Đồ ăn vặt</button>
                     </div>
-
                     <!-- section liet ke product -->
                     <div class="menu">
                         <!-- product 1 -->
@@ -54,9 +53,9 @@
         <section class="right">
             <div class = "tMenu">
                 <!-- The ten cua table -->
-                <div class = "tableTag" style="width: 120px;">
+                <div class = "tableTag" style="width: 100px;">
                     <div class="fa-solid fa-xmark btndelete"></div>
-                    <h4>Mang về</h4>
+                    <h4>{{table.table_name}}</h4>
                 </div>
 
                 <!-- order -->
@@ -95,10 +94,6 @@
                             <div class="td" style="font-size: 20px;">{{order_item.price}}</div> 
                         </div>
 
-                            <div class="btnMenu">
-                                <button class="form__button" @click="changePaymentMethod('cash')">Tiền mặt</button>
-                                <button class="form__button" @click="changePaymentMethod('bank')">Chuyển khoản</button>
-                            </div>
                         <!-- phan thanh toan -->
                         <div class="footer">
                             <div class="sum">
@@ -106,62 +101,51 @@
                                 <!-- <input id="tong" type="text" class="m-sum" :value="order_items" disabled> -->
                                 <h5 class="money">{{subTotal}}</h5>
                             </div>
-                            <div v-show="payment_method==='cash'">
-                                <h4> Tiền khách đưa </h4>
-                                <div class="searchContainer">
-                                    <input id="searchbox" class="searchbar" type="number" v-model="customer_pay" required>
-                                </div>    
-                                <h4> Tiền trả lại</h4>
-                                <input id="searchbox" class="searchbar" type="number" v-model="moneyReturned" disabled>                                
-                            </div>    
-                            <div class="payment" v-show="payment_method!==''">
-                                <!-- <button class="bill"><i class="fa-solid fa-receipt billIcon"></i>In hoa don</button> -->
-                                <button class="pay" @click="changeDisplayConfirmModal(true)">Thanh toan</button>
+                            <div class="payment">
+                                <button class="pay" @click="changeDisplayConfirmModal(true)">Tạo bàn</button>
                             </div>
                         </div>
- 
 
                     </div>
                 </div>
             </div>
         </section>
 
-                    <ConfirmOrderPayModal :order_items="order_items" 
+                    <ConfirmOrderInTableModal :order_items="order_items" 
                                           :payment_method="payment_method" 
-                                          :customer_pay="customer_pay" 
+                                          :table="table" 
                                           :subTotal="subTotal" 
-                                          :moneyReturned="moneyReturned" 
-                                          @close="changeDisplayConfirmModal" v-if="isDisplayConfirmModal" />    
+                                          @close="changeDisplayConfirmModal" v-if="isDisplayConfirmModal" />   
 
 </div>        
 </template>
 
 <script>
 import {mapActions, mapState} from 'vuex';
-import ConfirmOrderPayModal from "../components/ConfirmOrderPayModal.vue";
+import ConfirmOrderInTableModal from "../components/ConfirmOrderInTableModal.vue";
 
 export default {
-    name: "OrderTakeAway",
+    name: "OrderChooseDishes",
     components: {
-        ConfirmOrderPayModal
+        ConfirmOrderInTableModal
     },
     data() {
         return {
-            isDisplayConfirmModal: false,            
+            isDisplayConfirmModal: false, 
             order_items : [],
             customer_pay: 0,
-            payment_method: ''
-            // money_returned: 0
+            payment_method: ''            
         }
     },
     created() {
-        this.$store.dispatch("products/getProducts")         
+        this.$store.dispatch("products/getProducts")
+        this.$store.dispatch("orders/getLastestOrder")
     },
     props: ['table'],
     computed: {
         ...mapState("products", ["products", "clonedProducts", "searchWord"]),
-        ...mapState("orders", ["order", "lastest_order"]),        
-        filteredProducts () {
+        ...mapState("orders", ["order", "lastest_order"]),
+            filteredProducts () {
             let a = (this.clonedProducts || this.products)
             return a
         },
@@ -187,14 +171,15 @@ export default {
                 money_returned = 0;
             }
             return money_returned;
-        }
+        }        
     },
     methods: {
-        ...mapActions("products", ["getProducts", "filteringProducts"]),
+        ...mapActions("products", ["getProducts"]),
+        ...mapActions("tables", ["updateTable"]),        
         ...mapActions("orders", ["createOrder", "createOrderItem", "getLastestOrder", "deleteLastestOrder", "updateOrder"]),
         changeDisplayConfirmModal(value) {
             this.isDisplayConfirmModal = value
-        },        
+        },
         changePaymentMethod(method) {
             if (method === "cash") {
                 this.payment_method = "cash";
@@ -202,9 +187,12 @@ export default {
                 this.payment_method = "bank";
                 this.customer_pay = this.subTotal;
             }
-        },
+        },        
         goBackAndDeleteLastestOrder() {
             this.deleteLastestOrder(this.order.id);  
+        },         
+        close: function () {
+        this.$emit("close", false)
         },
         addProductToListOrderItems(product) {
             let order_item = {
@@ -232,8 +220,7 @@ export default {
         },
         categoryProducts(value) {
             this.$store.commit('products/CATEGORY_PRODUCT', value)
-        },         
-
+        },        
     }
 }
 </script>

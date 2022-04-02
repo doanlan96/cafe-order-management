@@ -9,7 +9,7 @@
           'url(' + require('@/assets/login-background.jpg') + ')',
       }"
     >
-      <h2 class="l-text2 t-center">Đăng kí tài khoản cho nhân viên mới</h2>
+      <h2 class="l-text2 t-center" style="color:black">Đăng kí tài khoản cho nhân viên mới</h2>
     </section>
 
     <!-- content page -->
@@ -131,16 +131,18 @@ export default {
         full_name: yup
             .string()
             .min(6, "Họ và Tên tối thiểu phải có 6 kí tự!")
+            .max(30, "Họ và Tên tối đa là 30 kí tự!")
             .required("Họ và Tên là bắt buộc!"),
         user_name: yup
             .string()
             .min(6, "Tài khoản tối thiểu phải có 6 kí tự!")
+            .max(30, "Tài khoản tối tối đa là 30 kí tự!")
             .required("Tài khoản là bắt buộc"),
         password: yup
             .string()
             .required("Mật khẩu là bắt buộc")
             .min(6, "Mật khẩu tối thiểu 6 kí tự")
-            .max(40, "Mật khẩu tối đa 40 kí tự!"),
+            .max(30, "Mật khẩu tối đa 30 kí tự!"),
         confirm_password: yup
         .string()
         .oneOf([Yup.ref('password'), null], 'Nhập lại mật khẩu không trùng')

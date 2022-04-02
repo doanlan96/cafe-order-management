@@ -5,6 +5,7 @@ import axios from 'axios';
 import store from './store';
 
 import { IonicVue } from '@ionic/vue';
+import  VueHtmlToPaper from './plugins/VueHtmlToPaper';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -28,6 +29,7 @@ import './theme/variables.css';
 axios.defaults.baseURL='http://localhost:8080/api/v1';
 
 const app = createApp(App)
+  .use(VueHtmlToPaper)
   .use(IonicVue)
   .use(store)
   .use(router);

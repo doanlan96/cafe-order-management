@@ -9,7 +9,7 @@
           'url(' + require('@/assets/login-background.jpg') + ')',
       }"
     >
-      <h2 class="l-text2 t-center">Đổi mật khẩu</h2>
+      <h2 class="l-text2 t-center" style="color:black">Đổi mật khẩu</h2>
     </section>
 
     <!-- content page -->
@@ -114,12 +114,12 @@ export default {
             .string()
             .required("Mật khẩu hiện tại là bắt buộc")
             .min(6, "Mật khẩu tối thiểu 6 kí tự")
-            .max(40, "Mật khẩu tối đa 40 kí tự!"),
+            .max(30, "Mật khẩu tối đa 30 kí tự!"),
         password: yup
             .string()
             .required("Mật khẩu mới là bắt buộc")
             .min(6, "Mật khẩu tối thiểu 6 kí tự")
-            .max(40, "Mật khẩu tối đa 40 kí tự!"),
+            .max(30, "Mật khẩu tối đa 30 kí tự!"),
         confirm_password: yup
         .string()
         .oneOf([Yup.ref('password'), null], 'Nhập lại mật khẩu mới không trùng')

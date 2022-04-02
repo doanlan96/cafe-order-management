@@ -12,8 +12,8 @@ const actions = {
     getProducts: async ({commit}) => {
         try {
             const res = await axios.get("/products")
-            commit("GET_PRODUCTS", res.data.content)
-            console.log(res.data.content)
+            commit("GET_PRODUCTS", res.data)
+            console.log(res.data)
         } catch (e) {
             console.log(e);
         }
@@ -129,18 +129,48 @@ const mutations = {
       }
     },
     CATEGORY_PRODUCT(state, value) {
-      if (value === "Đồ uống"){
+      if (value === "Trà"){
         let drink = state.products.filter((product) => {
-          return product.category_id === 1;
+          return product.category_id === 4;
         });
         state.clonedProducts = drink
       }
-      if (value === "Thức ăn"){
-        let food = state.products.filter((product) => {
-          return product.category_id === 2;
+      if (value === "Sữa chua"){
+        let drink1 = state.products.filter((product) => {
+          return product.category_id === 5;
         });
-        state.clonedProducts = food
+        state.clonedProducts = drink1
       }
+      if (value === "Đồ uống nóng"){
+        let drink2 = state.products.filter((product) => {
+          return product.category_id === 6;
+        });
+        state.clonedProducts = drink2
+      }
+      if (value === "Nước hoa quả"){
+        let drink3 = state.products.filter((product) => {
+          return product.category_id === 7;
+        });
+        state.clonedProducts = drink3
+      }
+      if (value === "Cafe"){
+        let drink4 = state.products.filter((product) => {
+          return product.category_id === 8;
+        });
+        state.clonedProducts = drink4
+      }
+      if (value === "Đồ ăn vặt"){
+        let drink5 = state.products.filter((product) => {
+          return product.category_id === 9;
+        });
+        state.clonedProducts = drink5
+      } 
+      if (value === "Trà sữa"){
+        let drink6 = state.products.filter((product) => {
+          return product.category_id === 10;
+        });
+        state.clonedProducts = drink6
+      }                        
       if(value === "") {
           state.clonedProducts = state.products
       }

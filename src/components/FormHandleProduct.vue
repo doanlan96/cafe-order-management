@@ -110,6 +110,7 @@ export default {
           .required("Ảnh là bắt buộc"),
       price: yup
           .number()
+          .positive("Giá tiền phải là số dương")
           .required("Giá là bắt buộc"),
     })
     return {
