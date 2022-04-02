@@ -1,7 +1,7 @@
 <template>
 <ion-page>
     <div class="split left">
-  <router-link to="Order In Place">       
+  <router-link to="Order Choose Tables">       
   <div class="centered"> 
     <h2>Tại chỗ</h2>
   </div>
@@ -10,7 +10,7 @@
 
 <div class="split right">
   <router-link to="Order Take Away">  
-  <div class="centered">
+  <div class="centered" type="button" @click="submitOrder()">
     <h2>Mang về</h2>
   </div>
   </router-link>
@@ -19,10 +19,23 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex';
 export default {
     name: 'ManageOrder',
-    // setup() { 
-    // },
+    methods: {
+      ...mapActions("orders", ["createOrder"]),
+      submitOrder() {
+            let user = JSON.parse(localStorage.getItem("User Infor"));
+            const order_to_submit = {
+                form: "takeaway",
+                table_id : 1,
+                user_id : user.id,
+                payment_method: "cash",
+                state : "not paid"
+            };
+            this.createOrder(order_to_submit);          
+      },     
+    }
 }
 </script>
 

@@ -44,8 +44,13 @@
             <label for="productss">Danh mục:</label>
             <select name="categories" id="categories" @change="categoryProducts($event.target.value)">
               <option value="">---Mặc định---</option>
-              <option value="Đồ uống">Đồ uống</option>
-              <option value="Thức ăn">Thức ăn</option>
+              <option value="Trà">Trà</option>
+              <option value="Sữa chua">Sữa chua</option>
+              <option value="Đồ uống nóng">Đồ uống nóng</option>
+              <option value="Nước hoa quả">Nước hoa quả</option>
+              <option value="Cafe">Cafe</option>
+              <option value="Đồ ăn vặt">Đồ ăn vặt</option>
+              <option value="Trà sữa">Trà sữa</option>                                         
             </select>
           </form>
         </div>
@@ -74,7 +79,7 @@
           <input
             type="text"
             class="searchTerm"
-            placeholder="Type to search for products..."
+            placeholder="Tìm kiếm sản phẩm theo tên..."
             v-model="searchWordd" required
           />
         </div>
@@ -97,8 +102,13 @@
                   <tr v-for="product in filteredProducts" :key="product.id">
                     <td><img id="theImage" :src="product.picture"></td>
                     <td>{{product.name}}</td>
-                    <td v-if="product.category_id==1">Đồ uống</td>
-                    <td v-if="product.category_id==2">Thức ăn</td>
+                    <td v-if="product.category_id==4">Trà</td>
+                    <td v-if="product.category_id==5">Sữa chua</td>
+                    <td v-if="product.category_id==6">Đồ uống nóng</td>
+                    <td v-if="product.category_id==7">Nước hoa quả</td>
+                    <td v-if="product.category_id==8">Cafe</td>
+                    <td v-if="product.category_id==9">Đồ ăn vặt</td>    
+                    <td v-if="product.category_id==10">Trà sữa</td>                                                        
                     <td>{{product.price}}</td>
                     <td class="btnedit" style="text-align:center"><button @click="changeDisplay(true); changeProduct(product)" type="button" class="btn btn-success">Sửa món</button></td>
                     <td class="btndelete" style="text-align:center"><button @click="changeDisplayConfirmModal(true); changeProductIDToDelete(product.id)" type="button" class="btn btn-danger">Xóa món</button></td>

@@ -1,19 +1,13 @@
 <template>
+    <template v-if="!isDisplayChooseDishes">
    <!--     section search bar     -->
     <div class = "search">
         <div class = "s-title">
             <h3>Bàn</h3>
         </div>
-        <div class = "s-title">
-               <!--     search bar     -->
-            <div class="searchContainer">
-                <div class="fa fa-search searchIcon"></div>
-                <input type="text">
-            </div>
-        </div>
     </div>
    <!--     section chon ban`     -->
-    <div class = "container">
+    <div class="container">
            <!--     text bar     -->
         <div class="place">
             <h3 class="location">Ngoài sân</h3>
@@ -22,92 +16,24 @@
            <!--     layout      -->
         <div class="tb">
                <!--     table 1    -->
-            <div class="table">
+            <div class="table" v-for="table in tables.slice(1, 9)" :key="table.id">
                    <!--     content trong 1 table     -->
-                <div class="tableContainer">
+                <div class="tableContainer" type="button" v-if="table.status==='full'" style="background-color: #f1f1f1;" @click="changeDisplayConfirmPayModal(true); changeTableToConfirm(table); getOrderByTableIDWithState(table.id);">
                     <div class="icon">
                         <i class="fa-solid fa-store storeIcon fa-4x"></i>
                     </div>
                     <!--     table number    -->
                     <div class="tableNum">
-                        <h3>Bàn 1</h3>
+                        <h3>{{table.table_name}}</h3>
                     </div>
-                </div>
-            </div>
-             <!--     table 2     -->
-            <div class="table">
-                <div class="tableContainer">
+                </div>                   
+                <div class="tableContainer" type="button" @click="changeDisplay(true); changeTable(table); submitOrder(table);" v-else>
                     <div class="icon">
                         <i class="fa-solid fa-store storeIcon fa-4x"></i>
                     </div>
+                    <!--     table number    -->
                     <div class="tableNum">
-                        <h3>Bàn 2</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table">
-                <div class="tableContainer">
-                    <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
-                    </div>
-                    <div class="tableNum">
-                        <h3>Bàn 3</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table">
-                <div class="tableContainer">
-                    <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
-                    </div>
-                    <div class="tableNum">
-                        <h3>Bàn 4</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table">
-                <div class="tableContainer">
-                    <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
-                    </div>
-                    <div class="tableNum">
-                        <h3>Bàn 5</h3>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="table">
-                <div class="tableContainer">
-                    <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
-                    </div>
-                    <div class="tableNum">
-                        <h3>Bàn 6</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table">
-                <div class="tableContainer">
-                    <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
-                    </div>
-                    <div class="tableNum">
-                        <h3>Bàn 7</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table">
-                <div class="tableContainer">
-                    <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
-                    </div>
-                    <div class="tableNum">
-                        <h3>Bàn 8</h3>
+                        <h3>{{table.table_name}}</h3>
                     </div>
                 </div>
             </div>
@@ -117,56 +43,90 @@
             <h3 class="location2">Trong nhà</h3>
         </div>
         <div class="tb">
-            <div class="table">
-                <div class="tableContainer">
+            <div class="table" v-for="table in tables.slice(9, 13)" :key="table.id">
+                <div class="tableContainer" type="button" v-if="table.status==='full'" style="background-color: #f1f1f1;" @click="changeDisplayConfirmPayModal(true); changeTableToConfirm(table); getOrderByTableIDWithState(table.id);">
                     <div class="icon">
                         <i class="fa-solid fa-store storeIcon fa-4x"></i>
                     </div>
+                    <!--     table number    -->
                     <div class="tableNum">
-                        <h3>Bàn 1</h3>
+                        <h3>{{table.table_name}}</h3>
                     </div>
-                </div>
-            </div>
-
-            <div class="table">
-                <div class="tableContainer">
+                </div>                   
+                <div class="tableContainer" type="button" @click="changeDisplay(true); changeTable(table); submitOrder(table);" v-else>
                     <div class="icon">
                         <i class="fa-solid fa-store storeIcon fa-4x"></i>
                     </div>
+                    <!--     table number    -->
                     <div class="tableNum">
-                        <h3>Bàn 2</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table">
-                <div class="tableContainer">
-                    <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
-                    </div>
-                    <div class="tableNum">
-                        <h3>Bàn 3</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table">
-                <div class="tableContainer">
-                    <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
-                    </div>
-                    <div class="tableNum">
-                        <h3>Bàn 4</h3>
+                        <h3>{{table.table_name}}</h3>
                     </div>
                 </div>
             </div>
     </div>
     </div>
+    </template>
+
+        <OrderChooseDishes :table="table" @close="changeDisplay" v-else/>
+        <ConfirmOrderInTablePayModal :table_to_confirm="table_to_confirm" :order_in_table="order_in_table" @close="changeDisplayConfirmPayModal" v-if="isDisplayConfirmPayModal"/>   
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex';
+import OrderChooseDishes from './OrderChooseDishes.vue';
+import ConfirmOrderInTablePayModal from "../components/ConfirmOrderInTablePayModal.vue";
+
 export default {
-    name: "OrderInPlace",
+    name: "OrderChooseTables",
+    components: {
+        OrderChooseDishes,
+        ConfirmOrderInTablePayModal
+    },
+    data() {
+        return {
+            isDisplayChooseDishes: false,
+            isDisplayConfirmPayModal: false,
+            table: {},
+            table_to_confirm: {}
+        }
+    },
+    created() {
+        this.$store.dispatch("tables/getTables")
+    },
+    computed: {
+        ...mapState("tables", ["tables"]),
+        ...mapState("orders", ["order_in_table"])
+    },
+    methods: {
+        ...mapActions("tables", ["getTables", "getTable"]),
+        ...mapActions("orders", ["createOrder", "getOrderByTableIDWithState"]),        
+        changeDisplay(value) {
+            this.table = {}
+            this.isDisplayChooseDishes = value            
+        },
+        changeDisplayConfirmPayModal(value) {
+            this.table_to_confirm = {}
+            this.isDisplayConfirmPayModal = value
+        },        
+        changeTable(table) {
+            this.table = table
+        },
+        changeTableToConfirm(table) {
+            this.table_to_confirm = table;
+        },
+        submitOrder(table) {
+            let user = JSON.parse(localStorage.getItem("User Infor"));
+            const order_to_submit = {
+                form: "in place",
+                table_id : table.id,
+                user_id : user.id,
+                payment_method: "cash",
+                state : "not paid"
+            };
+            this.createOrder(order_to_submit);          
+        },        
+    }
+
 }
 </script>
 
@@ -255,6 +215,7 @@ body {
       display: grid;
       grid-gap: 20px;
       margin: auto;
+      margin-left: -80px;
       grid-template-columns: auto auto auto auto;
   }
         /*       edit khung chua 1 ban`      */  

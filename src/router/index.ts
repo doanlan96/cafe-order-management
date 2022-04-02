@@ -25,11 +25,11 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/folder/OrderInPlace',
-    component: () => import ('../pages/OrderInPlace.vue')
+    component: () => import ('../pages/OrderChooseTables.vue')
   },
   {
     path: '/ordertakeaway',
-    component: () => import ('../pages/OrderTakeAway.vue')
+    component: () => import ('../pages/OrderChooseDishes.vue')
   },
 ]
 

@@ -22,7 +22,7 @@
       <DashBoard v-if="$route.params.id=='Dashboard'" />
       <ManageShop v-if="user.role==='admin' && $route.params.id=='Manage Shop'"/>
       <ManageOrder v-if="$route.params.id=='Order'"/>
-      <OrderInPlace v-if="$route.params.id=='Order In Place'"/>
+      <OrderChooseTables v-if="$route.params.id=='Order Choose Tables'"/>
       <OrderTakeAway v-if="$route.params.id=='Order Take Away'"/>
       <RegisterStaff v-if="user.role==='admin' && $route.params.id=='Register Staff'"/>
       <ChangePassword v-if="$route.params.id=='Change Password'" />
@@ -37,7 +37,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue
 import ManageOrder from "./ManageOrder.vue";
 import ManageShop from './ManageShop.vue';
 import DashBoard from './Dashboard.vue';
-import OrderInPlace from './OrderInPlace.vue';
+import OrderChooseTables from './OrderChooseTables.vue';
 import OrderTakeAway from './OrderTakeAway.vue';
 import ChangePassword from './ChangePassword.vue';
 import RegisterStaff from './RegisterStaff.vue';
@@ -48,7 +48,7 @@ export default defineComponent({
     ChangePassword,
     RegisterStaff,
     OrderTakeAway,
-    OrderInPlace,
+    OrderChooseTables,
     DashBoard,
     ManageOrder,
     ManageShop,
