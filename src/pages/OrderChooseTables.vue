@@ -20,7 +20,7 @@
                    <!--     content trong 1 table     -->
                 <div class="tableContainer" type="button" v-if="table.status==='full'" style="background-color: #f1f1f1;" @click="changeDisplayConfirmPayModal(true); changeTableToConfirm(table); getOrderByTableIDWithState(table.id);">
                     <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
+                        <i class="fa-solid fa-store storeIcon fa-5x"></i>
                     </div>
                     <!--     table number    -->
                     <div class="tableNum">
@@ -29,7 +29,7 @@
                 </div>                   
                 <div class="tableContainer" type="button" @click="changeDisplay(true); changeTable(table); submitOrder(table);" v-else>
                     <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
+                        <i class="fa-solid fa-store storeIcon fa-5x"></i>
                     </div>
                     <!--     table number    -->
                     <div class="tableNum">
@@ -46,7 +46,7 @@
             <div class="table" v-for="table in tables.slice(9, 13)" :key="table.id">
                 <div class="tableContainer" type="button" v-if="table.status==='full'" style="background-color: #f1f1f1;" @click="changeDisplayConfirmPayModal(true); changeTableToConfirm(table); getOrderByTableIDWithState(table.id);">
                     <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
+                        <i class="fa-solid fa-store storeIcon fa-5x"></i>
                     </div>
                     <!--     table number    -->
                     <div class="tableNum">
@@ -55,7 +55,7 @@
                 </div>                   
                 <div class="tableContainer" type="button" @click="changeDisplay(true); changeTable(table); submitOrder(table);" v-else>
                     <div class="icon">
-                        <i class="fa-solid fa-store storeIcon fa-4x"></i>
+                        <i class="fa-solid fa-store storeIcon fa-5x"></i>
                     </div>
                     <!--     table number    -->
                     <div class="tableNum">
@@ -136,9 +136,9 @@ export default {
     background-color: white;
     border: 1px solid black;
     display: inline-flex;  
-    width: 50%;  
-    flex-wrap: wrap;
+    width: 100%;  
     justify-content: space-around;
+    /* flex-wrap: wrap; */
 
 }
 
@@ -179,9 +179,10 @@ body {
   }
           /*       container cua chon ban`      */
   .container {
-      display: block;
+      display: grid;
       width: 50%;
       margin: 0 auto;
+      justify-content: center;
   } 
 
         /*       edit space cua textbar "Ngoai san" - "Trong nha"       */
@@ -193,16 +194,18 @@ body {
         /*       edit content bar "Ngoai san" - "Trong nha"      */
   .location {
       padding: 0.8rem 0;
-      background-color: #9942e9;
+      background-color: #44d574;
       margin: 0 auto;
       color: white;
+      width: 60%;
   }
         /*       edit content bar "Ngoai san" - "Trong nha"      */  
   .location2 {
       padding: 0.8rem 0;
-      background-color: #7b2ff7;
+      background-color: #0ea830d9;
       margin: 0 auto;
       color: white;
+      width: 60%;
   }
         /*       layout chon ban`     */  
   /* .tb {
@@ -215,22 +218,27 @@ body {
       display: grid;
       grid-gap: 20px;
       margin: auto;
-      margin-left: -80px;
+      /* margin-left: -80px; */
       grid-template-columns: auto auto auto auto;
   }
         /*       edit khung chua 1 ban`      */  
   .table {
-      padding: 1rem;
+      padding: 1.5rem;
   }
         /*       edit content 1 ban`      */  
   .tableContainer {
       border: 1px solid black;
       display: table-cell; 
-      width: 150px;
+      width: 190px;
+      height: 190px;
       text-align: center;
       background-color: white;
       cursor: pointer;
       margin: 1.5em;
+  }
+
+  .tableNum {
+      margin-top: 1rem;
   }
 
   .tableContainer:hover {
@@ -243,7 +251,7 @@ body {
         /*       edit h3 chung      */  
   h3 {
       font-family: Franklin Gothic Medium, sans-serif;
-      font-size: 20px;
+      font-size: 22px;
   }
 
 

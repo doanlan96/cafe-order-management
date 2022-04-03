@@ -23,7 +23,7 @@
                             <div v-show="payment_method==='cash'">
                                 <h4> Tiền khách đưa </h4>
                                 <div class="searchContainer">
-                                    <input id="searchbox" class="searchbar" type="number" v-model="customer_pay" required>
+                                    <input id="searchbox" class="searchbar" type="number" v-model.number="customer_pay" required>
                                 </div>                                  
                             </div>    
                         </div>
@@ -125,10 +125,10 @@
                 <div class="col-6">
                   <button class="btn btn-outline-secondary" @click="close()">Trở lại</button>
                 </div>
-                <div class="col-6" v-if="customer_pay===0"> 
+                <div class="col-6" v-show="customer_pay < order_in_table.sum"> 
                   <button class="btn btn-outline-danger" disabled>Xác nhận và in HĐ</button>
                 </div>
-                <div class="col-6" v-else> 
+                <div class="col-6" v-show="customer_pay >= order_in_table.sum"> 
                   <button class="btn btn-outline-success" @click.prevent="close(); print(); submitUpdateTable(); submitUpdateOrder(); $router.go(-1);">Xác nhận và in HĐ</button>
                 </div>                
               </div>

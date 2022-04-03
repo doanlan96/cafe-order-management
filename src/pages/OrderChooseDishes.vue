@@ -1,6 +1,6 @@
 <template>
 <div>
-    <button type="button" @click="goBackAndDeleteLastestOrder(); close();">Trở lại</button>
+    <button type="button" class="backbtn" @click="goBackAndDeleteLastestOrder(); close();">Trở lại</button>
 </div>
 <div style="display:flex">
        <!-- section de chia man hinh ra 2 phan left & right -->
@@ -78,8 +78,7 @@
                                         class="size8 m-text18 t-center num-product"
                                         type="number"
                                         name="num-product1"
-                                        :value="order_item.quantity"
-                                        disabled
+                                        v-model="order_item.quantity"
                                         style="width:30%;"
                                     />
 
@@ -94,6 +93,8 @@
                             <div class="td" style="font-size: 20px;">{{order_item.price}}</div> 
                         </div>
 
+
+                    </div>
                         <!-- phan thanh toan -->
                         <div class="footer">
                             <div class="sum">
@@ -101,12 +102,10 @@
                                 <!-- <input id="tong" type="text" class="m-sum" :value="order_items" disabled> -->
                                 <h5 class="money">{{subTotal}}</h5>
                             </div>
-                            <div class="payment">
+                            <div class="payment" v-if="order_items.length > 0">
                                 <button class="pay" @click="changeDisplayConfirmModal(true)">Tạo bàn</button>
                             </div>
                         </div>
-
-                    </div>
                 </div>
             </div>
         </section>
@@ -241,6 +240,20 @@ body {
     margin-right: 0;
 }
 
+.backbtn {
+    padding: 0.5rem 1.5rem;
+    margin: 10px;
+    background-color: white;
+    border: 1px solid #8d8d8d94;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.backbtn:hover {
+    background-color: #2dd36f;
+    color: white;
+}
+
 /*  Text "Menu"     */
  .s-title{
     display: flex;
@@ -327,12 +340,17 @@ body {
   }
         /*      Cac nut sort     */
   .form__button {
-      padding: 0.2rem 1rem;
+      padding: 0.5rem 1.5rem;
       margin: 10px;
       background-color: white;
       border: 1px solid #8d8d8d94;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
+  }
+
+  .form__button:hover {
+      background-color: #44d574;
+      color: white;
   }
         /*      layout display product     */
   .menu {
@@ -411,6 +429,7 @@ body {
   .btndelete {
       padding: 0.5rem 0.2rem 0.5rem 1rem;
       font-size: small;
+      cursor: pointer;
   }
 
         /*        icon them tag "+"     */
@@ -435,7 +454,7 @@ body {
       display: grid;
       grid-gap: 20px;
       margin: auto;
-      grid-template-columns: auto auto auto auto;
+      grid-template-columns: [first] 40px [line2] 200px [line3] auto [col4-start] 100px [end];
       border: 0.5px solid #cbcbcb;
       align-items: center;
   }
@@ -473,15 +492,17 @@ body {
         /*        section thanh toan      */
   .footer {
       display: flex;
-      bottom: 0;
+      border-top: 5px solid black;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      /* bottom: 0;
       right: 0;
       position: absolute;
       width: 40%;
       height: 30%;
-      flex-direction: column;
       align-items: flex-end;
-      margin-bottom: 3rem;
-      border-top: 5px solid black;
+      flex-direction: column;
+      margin-bottom: 3rem; */
   }
 
   .footer::after {
@@ -496,17 +517,18 @@ body {
   .sum {
       display: inline-flex;
       align-items: center;
-      padding: 0 2rem 5rem 2rem;
+      /* padding: 0 2rem 5rem 2rem; 
       width: 60%;
       height: 30%;
       flex-direction: row;
-      flex-wrap: nowrap;
+      flex-wrap: nowrap; */
   }
         /*        layout 2 button thanh toan - bill      */
   .payment {
-      display: inline;
-      margin-bottom: 1rem;
-      width: 80%;
+    display: inline-grid;
+    margin-bottom: 1rem;
+    width: 100%;
+    justify-items: center;
   }
         /*        edit input box tong tien     */
   .m-sum {
@@ -520,7 +542,7 @@ body {
       font-size: large;
       width: 160px;
       margin: 1rem;
-      padding: 0.3rem 1rem;
+      padding: 0.5rem 1rem;
   }
         /*        bill button      */
   .bill {
@@ -532,6 +554,12 @@ body {
       background-color: #91dee0;
       cursor: pointer;
   }
+  
+  .pay:hover {
+      background-color: #44d574;
+      color: white;
+      }
+
         /*        icon bill      */
   .billIcon {
       margin-right: 0.5rem;
@@ -546,15 +574,16 @@ body {
       font-family: Franklin Gothic Medium, sans-serif;
       padding-left: 0.5rem;
       color: #0239ef;
+      margin-top: 0.5rem;
   }
         /*        edit h5 chung      */
   h5 {
-      font-size: large;
-      padding: 1rem;
+      font-size: 22px;
+      padding: 1rem 1rem 1.5rem 1rem;
   }
         /*        edit text "Tong tien"      */
   .sum h4 {
-      font-size: 18px;
+      font-size: 22px;
       margin: 1rem 0 1rem 1rem;
       padding: 0.5rem;
   }
