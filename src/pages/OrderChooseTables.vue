@@ -18,7 +18,7 @@
                <!--     table 1    -->
             <div class="table" v-for="table in tables.slice(1, 9)" :key="table.id">
                    <!--     content trong 1 table     -->
-                <div class="tableContainer" type="button" v-if="table.status==='full'" style="background-color: #f1f1f1;" @click="changeDisplayConfirmPayModal(true); changeTableToConfirm(table); getOrderByTableIDWithState(table.id);">
+                <div class="tableContainer" type="button" v-if="table.status==='full'" style="background-color: #c2c2c0;" @click="changeDisplayConfirmPayModal(true); changeTableToConfirm(table); getOrderByTableIDWithState(table.id);">
                     <div class="icon">
                         <i class="fa-solid fa-store storeIcon fa-5x"></i>
                     </div>

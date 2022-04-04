@@ -51,8 +51,13 @@
                 <div class="col-4">
                   <Select
                       :options="[
-                      { value: '1', label: 'Đồ uống' },
-                      { value: '2', label: 'Thức ăn' },
+                      { value: '4', label: 'Trà' },
+                      { value: '5', label: 'Sữa chua' },
+                      { value: '6', label: 'Đồ uống nóng' },
+                      { value: '7', label: 'Nước hoa quả' },
+                      { value: '8', label: 'Cafe' },
+                      { value: '9', label: 'Đồ ăn vặt' },
+                      { value: '10', label: 'Trà sữa' },
                     ]"
                       @change="categoryUpdate"
                       :value="currentProduct.currentCategory"
@@ -93,10 +98,20 @@ export default {
     Select
   },
   mounted() {
-      if (this.product.category_id === 1) {
-        this.currentProduct.currentCategory = { value: "1", label: 'Đồ uống' }
-      } else if (this.product.category_id === 2) {
-        this.currentProduct.currentCategory =  { value: "2", label: 'Thức ăn' }
+      if (this.product.category_id === 4) {
+        this.currentProduct.currentCategory = { value: "4", label: 'Trà' }
+      } else if (this.product.category_id === 5) {
+        this.currentProduct.currentCategory =  { value: "5", label: 'Sữa chua' }
+      } else if (this.product.category_id === 6) {
+        this.currentProduct.currentCategory =  { value: "6", label: 'Đồ uống nóng' }
+      } else if (this.product.category_id === 7) {
+        this.currentProduct.currentCategory =  { value: "7", label: 'Nước hoa quả' }
+      } else if (this.product.category_id === 8) {
+        this.currentProduct.currentCategory =  { value: "8", label: 'Cafe' }
+      } else if (this.product.category_id === 9) {
+        this.currentProduct.currentCategory =  { value: "9", label: 'Đồ ăn vặt' }
+      } else if (this.product.category_id === 10) {
+        this.currentProduct.currentCategory =  { value: "10", label: 'Trà sữa' }
       }
   },
   props: ['product'],

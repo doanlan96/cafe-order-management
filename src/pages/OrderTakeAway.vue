@@ -33,7 +33,7 @@
                     </div>
 
                     <!-- section liet ke product -->
-                    <div class="menu">
+                    <div class="menu" v-if="filteredProducts.length > 0">
                         <!-- product 1 -->
                         <div class="table" v-for="product in filteredProducts" :key="product.id">
                             <div class="tableContainer" @click="addProductToListOrderItems(product)">
@@ -47,6 +47,9 @@
                             </div>
                         </div>
                     </div>
+                    <div style="text-align: center; font-size: 25px;  " v-else>
+                        Không có món nào thỏa mãn điều kiện !
+                    </div>   
                 </form>
             </div>
         </section>
