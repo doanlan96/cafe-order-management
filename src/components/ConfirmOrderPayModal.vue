@@ -79,11 +79,13 @@
                 Tổng tiền: 
                 <p class="charge">+ Thanh toán:</p>
                 <p class="charge">+ Tiền trả lại:</p>
+                Phương thức:
             </div>
             <div class="des">
                 {{subTotal}}
                 <p class="money-charge">{{customer_pay}}</p>
                 <p class="money-charge">{{moneyReturned}}</p>
+                {{payment_method}}
             </div>
         </div>
 
@@ -101,10 +103,10 @@
             <Form >
               <div style="margin-top: 20px" class="button row m-t-30" >
                 <div class="col-6">
-                  <button class="btn btn-outline-secondary" @click="close()">Trở lại</button>
+                  <button class="btn btn-outline-secondary" @click="close()" style="width: 100%;">Trở lại</button>
                 </div>
                 <div class="col-6">
-                  <button class="btn btn-outline-success" @click.prevent="close(); print(); submitOrderItems(); submitUpdateOrder(); $router.go(-1);">Xác nhận và in HĐ</button>
+                  <button class="btn btn-outline-success" @click.prevent="close(); print(); submitOrderItems(); submitUpdateOrder(); $router.go(-1);" style="width: 100%;">Xác nhận và in HĐ</button>
                 </div>
               </div>
             </Form>
