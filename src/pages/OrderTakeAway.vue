@@ -107,7 +107,7 @@
                     </div>
                         <div class="footer">
                             <div class="sum">
-                                <h4>Tong tien</h4>
+                                <h4>Tổng tiền</h4>
                                 <!-- <input id="tong" type="text" class="m-sum" :value="order_items" disabled> -->
                                 <h5 class="money">{{subTotal}}</h5>
                             </div>
@@ -125,7 +125,7 @@
                             </div>    
                             <div class="payment" v-show="payment_method!=='' && customer_pay >= subTotal">
                                 <!-- <button class="bill"><i class="fa-solid fa-receipt billIcon"></i>In hoa don</button> -->
-                                <button class="pay" @click="changeDisplayConfirmModal(true)">Thanh toan</button>
+                                <button class="pay" @click="changeDisplayConfirmModal(true)">Thanh toán</button>
                             </div>
                         </div>
                 </div>

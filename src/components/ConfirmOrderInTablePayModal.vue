@@ -127,9 +127,9 @@
                 <div class="col-6">
                   <button class="btn btn-outline-secondary" @click="close()" style="width: 100%;">Trở lại</button>
                 </div>
-                <div class="col-6" v-show="customer_pay < order_in_table.sum"> 
-                  <button class="btn btn-outline-danger" disabled style="width: 100%;">Xác nhận và in HĐ</button>
-                </div>
+                <!-- <div class="col-6" v-show="customer_pay < order_in_table.sum"> 
+                  <button class="btn btn-outline-danger" style="width: 100%;">Xác nhận và in HĐ</button>
+                </div> -->
                 <div class="col-6" v-show="customer_pay >= order_in_table.sum"> 
                   <button class="btn btn-outline-success" @click.prevent="close(); print(); submitUpdateTable(); submitUpdateOrder(); $router.go(-1);" style="width: 100%;">Xác nhận và in HĐ</button>
                 </div>                
