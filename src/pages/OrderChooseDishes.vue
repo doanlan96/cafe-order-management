@@ -101,7 +101,7 @@
                         <!-- phan thanh toan -->
                         <div class="footer">
                             <div class="sum">
-                                <h4>Tong tien</h4>
+                                <h4>Tổng tiền</h4>
                                 <!-- <input id="tong" type="text" class="m-sum" :value="order_items" disabled> -->
                                 <h5 class="money">{{subTotal}}</h5>
                             </div>
