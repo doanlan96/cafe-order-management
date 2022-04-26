@@ -3,6 +3,10 @@ import axios from 'axios';
 const state = () => ({
     order_items: [],
     order_items_listback: [],
+    orders : [],
+    clonedOrders: [],
+    // total_orders: 0,
+    // total_revenue: 0,
     order: {},
     lastest_order: {},
     order_in_table: {}
@@ -12,6 +16,15 @@ const state = () => ({
 });
 
 const actions = {
+      getAllOrders: async ({commit}) => {
+        try {
+            const res = await axios.get("/orders")
+            commit("GET_ORDERS", res.data)
+            console.log(res.data)
+        } catch (e) {
+            console.log(e);
+        }
+    },
     getOrderItemsByOrderID: async ({commit}, order_id) => {
         try {
             const res = await axios.get(`/orderitems/orderid/${order_id}`)
@@ -86,6 +99,10 @@ const actions = {
 };
 
 const mutations = {
+    GET_ORDERS(state, orders) {
+      state.orders = orders;
+      state.clonedOrders = orders;
+    },
     GET_ORDER_ITEMS_LISTBACK(state, order_items) {
         state.order_items_listback = order_items
     },
@@ -111,73 +128,34 @@ const mutations = {
     UPDATE_ORDER(state, updatedOrder) {
       state.lastest_order = updatedOrder;
     },
-//     GET_PRODUCT_CART(state, productsCart) {
-//       state.productsCart = productsCart
-//   },
-    // GET_SEARCH_WORD(state, searchWord) {
-    //     state.searchWord = searchWord
-    // },
-    // GET_FILTERED_PRODUCTS(state, clonedProducts) {
-    //     state.clonedProducts = clonedProducts
-    // },
-    // // ADD_TO_CART(state, product) {     
-    // //       state.productsCart.push(product);
-    // // },
-    // SORT_PRODUCT(state, value) {
-    //   if (value === "upward"){
-    //     let up =  state.clonedProducts.sort((a, b) => {
-    //       return a.price - b.price;
-    //     });
-    //     state.clonedProducts = up;
-    //   }
-    //   if (value === "downward") {
-    //     let down = state.clonedProducts.sort((a, b) => {
-    //       return b.price - a.price;
-    //     });
-    //     state.clonedProducts = down;
-    //   }
-    //   if (value === "nameup") {
-    //     let nameup = state.clonedProducts.sort((a, b) => {
-    //       return a.name.localeCompare(b.name);
-    //     });
-    //     state.clonedProducts = nameup;
-    //   }
-    //   if (value === "namedown") {
-    //     let namedown = state.clonedProducts.sort((a, b) => {
-    //       return b.name.localeCompare(a.name);
-    //     });
-    //     state.clonedProducts = namedown;
-    //   }
-    //   if (value === "") {
-    //     let blank =  state.clonedProducts.sort((a, b) => {
-    //       return a.id - b.id;
-    //     });
-    //     state.clonedProducts = blank;
-    //   }
-    // },
-    // CATEGORY_PRODUCT(state, value) {
-    //   if (value === "Đồ uống"){
-    //     let drink = state.products.filter((product) => {
-    //       return product.category_id === 1;
-    //     });
-    //     state.clonedProducts = drink
-    //   }
-    //   if (value === "Thức ăn"){
-    //     let food = state.products.filter((product) => {
-    //       return product.category_id === 2;
-    //     });
-    //     state.clonedProducts = food
-    //   }
-    //   if(value === "") {
-    //       state.clonedProducts = state.products
-    //   }
-    // },
-    // SEARCH_PRODUCT(state, value) {
-    //     state.searchWord = value;
-    //     state.clonedProducts = state.products.filter(product => {
-    //         return product.name.toLowerCase().match(value.toLowerCase())
-    //       }) 
-    // },
+    GET_FILTERED_ORDERS(state, clonedOrders) {
+      state.clonedOderss = clonedOrders
+    },    
+    FILTER_ORDERS(state, range) {
+        let fil_orders = state.orders.filter((order) => {
+          order.day_month_year >= range.start &&
+          order.day_month_year <= range.end;
+      });
+      state.clonedOrders = fil_orders;
+      console.log(state.clonedOrders);
+    },
+    FORM_ORDERS(state, value) {
+      if (value === "in place") {
+        let in_place = state.orders.filter((order) => {
+          return order.form === "in place";
+        });
+        state.clonedOrders = in_place;        
+      }
+      if (value === "takeaway") {
+        let takeaway = state.orders.filter((order) => {
+          return order.form === "takeaway";
+        });
+        state.clonedOrders = takeaway;     
+      }
+      if(value === "") {
+        state.clonedOrders = state.orders;
+      }
+    }
     
 };
 

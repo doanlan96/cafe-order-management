@@ -1,13 +1,6 @@
 <template>
   <div id="myModal" class="modal">
-    <div class="modal-content">
-      <!-- <h1>Thông tin Order: </h1>
-      <p v-for="order_item in order_items" :key="order_item.name">{{order_item.name}} || {{order_item.quantity}} || {{order_item.price}}</p>
-      <p>{{payment_method}}</p>
-      <p>{{subTotal}}</p>
-      <p>{{customer_pay}}</p>
-      <p>{{moneyReturned}}</p>                  -->
-      
+    <div class="modal-content">     
     <div id="printMe" class="page" size="A5">
         <div class="top-section">
             <div class="address">
@@ -21,30 +14,32 @@
     
         <div class="billing-invoice">
             <div class="title">
-                HÓA ĐƠN THANH TOÁN
+                THÔNG TIN ORDER
             </div>
             <div class="des">
-                <p class="code">Số HĐ: {{lastest_order.id}}</p>
-                <p class="date">Tạo vào: <span>{{lastest_order.day_month_year}}</span></p>
-                <p class="date">Giờ vào: <span>{{lastest_order.time_in}}</span></p>
-                <p class="date">Giờ ra: <span>{{lastest_order.time_out}}</span></p>                                
+                <p class="code">Số HĐ: {{order.id}}</p>
+                <p class="date">Tạo vào: <span>{{order.day_month_year}}</span></p>
+                <p class="date">Giờ vào: <span>{{order.time_in}}</span></p>
+                <p class="date">Giờ ra: <span>{{order.time_out}}</span></p>                                
             </div>
         </div>
 
         <div class="billing-detail">
             <div class="title">Chi tiết đơn</div>
-                <div class="billed-sec">
+                <!-- <div class="billed-sec">
                     <div class="emp-detail">
                         Thu ngân
                     </div>
                     <p>Tên: {{user.full_name}}</p>
                     <p>Ca:</p>
-                </div>
+                </div> -->
 
                 <div class="billed-sec">
-                    <div class="sub-title">Loại đơn: Mang về</div>
-                    <div class="seat-detail">Khu vực: Trong nhà/Ngoài sân</div>
-                    <div class="seat-detail">Bàn số: Bàn 0</div>
+                    <div class="sub-title" v-show="order.form==='takeaway'">Loại đơn: Mang về</div>
+                    <div class="sub-title" v-show="order.form==='in place'">Loại đơn: Tại chỗ</div>
+                    <!-- <div class="seat-detail">Khu vực: Trong nhà/Ngoài sân</div> -->
+                    <div class="seat-detail" v-show="order.form==='takeaway'">Bàn số: Bàn 0</div>
+                    <div class="seat-detail" v-show="order.form==='in place'">Bàn số: Bàn {{order.table_id}}</div>
                 </div>
         </div>
 
@@ -57,25 +52,13 @@
                     <th>Thành tiền</th>
                 </tr>
                 <tr v-for="order_item in order_items" :key="order_item.name">
-                    <th>{{order_item.name}}
-                        <div v-for="topping in order_item.toppings" :key="topping.name" style="font-size: 14px" >
-                            <div class="fa-solid fa-plus fa-xs"></div> {{topping.name}}
-                        </div>   
+                    <th>{{order_item.product_name}}
                     </th>
-                    <th>{{order_item.quantity}}
-                        <div v-for="topping in order_item.toppings" :key="topping.name" >
-                            {{order_item.quantity}}
-                        </div>                         
+                    <th>{{order_item.quantity}}      
                     </th>
-                    <th>{{order_item.price}}
-                        <div v-for="topping in order_item.toppings" :key="topping.name" >
-                            {{topping.price}}
-                        </div>                         
+                    <th>{{order_item.product_price}}                     
                     </th>
-                    <th>{{order_item.quantity * order_item.price}}
-                        <div v-for="topping in order_item.toppings" :key="topping.name" >
-                            {{topping.price * order_item.quantity}}
-                        </div>                        
+                    <th>{{order_item.quantity * order_item.product_price}}                       
                     </th>  
                 </tr>
             </table>
@@ -86,7 +69,7 @@
                 Thành tiền: 
             </div>
             <div class="des">
-                <p class="money">{{subTotal}}</p>
+                <p class="money">{{order.sum}}</p>
             </div>
         </div>
         
@@ -98,16 +81,11 @@
                 Phương thức:
             </div>
             <div class="des">
-                {{subTotal}}
-                <p class="money-charge">{{customer_pay}}</p>
-                <p class="money-charge">{{moneyReturned}}</p>
-                {{payment_method}}
+                {{order.sum}}
+                <p class="money-charge">{{order.customer_pay}}</p>
+                <p class="money-charge">{{order.money_returned}}</p>
+                {{order.payment_method}}
             </div>
-        </div>
-
-        <div class="bottom-section">
-            <p>----------------------------------------------------------</p>
-            <p>Cảm ơn Quý Khách!</p>
         </div>
 
     </div>      
@@ -122,7 +100,7 @@
                   <button class="btn btn-outline-secondary" @click="close()" style="width: 100%;">Trở lại</button>
                 </div>
                 <div class="col-6">
-                  <button class="btn btn-outline-success" @click.prevent="close(); print(); submitOrderItems(); submitUpdateOrder(); $router.go(-1);" style="width: 100%;">Xác nhận và in HĐ</button>
+                  <button class="btn btn-outline-success" @click.prevent="close(); print();" style="width: 100%;">In hóa đơn</button>
                 </div>
               </div>
             </Form>
@@ -137,60 +115,29 @@
 </template>
 
 <script>
-import { Form, } from "vee-validate";
-import {mapActions, mapState, mapMutations} from 'vuex';
+// import { Form, } from "vee-validate";
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
-  name: "ConfirmOrderPayModal",
-  components:{
-    Form,
-  },
-  created() {
-        this.$store.dispatch("orders/getLastestOrder")
-        this.getUserExists();    
-  },
-  props: ['order_items', 'payment_method', 'customer_pay', 'subTotal', 'moneyReturned'],
-  computed: {
-        ...mapState("orders", ["lastest_order"]),
-        ...mapState("users", ["user"]),      
-
-  },
+  name: "OrderDetailModal",
+//   components:{
+//     Form,
+//   },
+//   created() {
+//         this.$store.dispatch("orders/getLastestOrder")
+//         this.getUserExists();    
+//   },
+  props: ['order_items', 'order'],
   methods: {
-    ...mapActions("orders", ["createOrderItem", "updateOrder", "getLastestOrder"]),
-    ...mapMutations("users", ["getUserExists"]),    
+    ...mapActions("orders", ["getOrderItemsByOrderID"]),
+            ...mapMutations("orders", ["DELETE_ORDER_ITEMS_LISTBACK"]),      
     close: function () {
+      this.DELETE_ORDER_ITEMS_LISTBACK();
       this.$emit("close", false)
     },
     print() {
         this.$htmlToPaper('printMe')
     },    
-    submitOrderItems() {           
-           for (let i = 0; i < this.order_items.length; i++) {
-                const order_item_to_submit = {
-                    orderid : this.lastest_order.id,
-                    product_id : this.order_items[i].product_id,
-                    product_name: this.order_items[i].name,
-                    product_price: this.order_items[i].price,
-                    quantity : this.order_items[i].quantity
-                };
-                this.createOrderItem(order_item_to_submit);
-           }
-        },
-    submitUpdateOrder() { 
-            const updated_order = {
-                form : this.lastest_order.form,
-                time_in: this.lastest_order.time_in,
-                day_month_year: this.lastest_order.day_month_year,
-                table_id: this.lastest_order.table_id,
-                sum: this.subTotal,
-                customer_pay: this.customer_pay,
-                money_returned: this.moneyReturned,
-                user_id: this.lastest_order.user_id,
-                payment_method: this.payment_method,
-                state: "paid"
-            };
-            this.updateOrder({id: this.lastest_order.id, order: updated_order});
-        }
   }
 }
 </script>

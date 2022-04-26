@@ -6,7 +6,10 @@ import store from './store';
 
 import { IonicVue } from '@ionic/vue';
 import  VueHtmlToPaper from './plugins/VueHtmlToPaper';
+import  VueHtmlToPaperr from './plugins/VueHtmlToPaper2';
 
+import 'v-calendar/dist/style.css';
+import VCalendar from 'v-calendar';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
 
@@ -30,6 +33,8 @@ axios.defaults.baseURL='http://localhost:8080/api/v1';
 
 const app = createApp(App)
   .use(VueHtmlToPaper)
+  .use(VueHtmlToPaperr)
+  .use(VCalendar, {})
   .use(IonicVue)
   .use(store)
   .use(router);

@@ -33,11 +33,11 @@
             <ion-col size="3">
                 <ion-card>
                     <ion-card-header>
-                    <ion-card-title>Trong ngày</ion-card-title>
+                    <ion-card-title>Lịch</ion-card-title>
                     </ion-card-header>
 
                     <ion-card-content class = ion-justify-content-center>
-                    <input type="date" id="day" name="day">
+                    <v-date-picker v-model="date" />
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -51,7 +51,7 @@
                     </ion-card-header>
 
                     <ion-card-content class = ion-justify-content-between style="font-size: 40px; color:black">
-                    123 <ion-icon style= "color: deepskyblue" :md="documentTextOutline"></ion-icon>
+                    {{totalOrders}} <ion-icon style= "color: deepskyblue" :md="documentTextOutline"></ion-icon>
                     </ion-card-content>
                 </ion-card>
 
@@ -64,7 +64,7 @@
                     </ion-card-header>
 
                     <ion-card-content class = ion-justify-content-between style="font-size: 40px; color:black">
-                    34 <ion-icon style= "color: gold" :md="carOutline"></ion-icon> 
+                    0 <ion-icon style= "color: gold" :md="carOutline"></ion-icon> 
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -75,7 +75,7 @@
                     </ion-card-header>
 
                     <ion-card-content class = ion-justify-content-between style="font-size: 40px; color:black">
-                    10.000.000 <ion-icon style= "color: green" :md="cashOutline"></ion-icon> 
+                    {{totalRevenue}} <ion-icon style= "color: green" :md="cashOutline"></ion-icon> 
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -123,6 +123,8 @@
 <script>
 import { IonIcon } from '@ionic/vue';
 import {documentTextOutline, carOutline, cashOutline} from 'ionicons/icons';
+import {mapActions, mapState} from 'vuex';
+
 export default {
     name: 'DashBoard',
     components: {
@@ -133,8 +135,32 @@ export default {
           documentTextOutline,
           carOutline,
           cashOutline,
+          date: new Date(),
           }  
     },
+    created() {
+        this.$store.dispatch("orders/getAllOrders");
+    },
+    computed: {
+        ...mapState("orders", ["orders"]),
+        totalOrders() {
+            let total_orders = 0;
+            for (let i = 0; i < this.orders.length; i++) {
+                    total_orders += 1;
+            }
+            return total_orders;
+        },
+        totalRevenue() {
+            let total_revenue = 0;
+            for (let i = 0; i < this.orders.length; i++) {
+                    total_revenue += this.orders[i].sum;
+            }
+            return total_revenue;
+        },                
+    },
+    methods: {
+        ...mapActions("orders", ["getAllOrders"]),
+    }        
 }
 </script>
 

@@ -26,6 +26,7 @@
       <OrderTakeAway v-if="$route.params.id=='Order Take Away'"/>
       <RegisterStaff v-if="user.role==='admin' && $route.params.id=='Register Staff'"/>
       <ChangePassword v-if="$route.params.id=='Change Password'" />
+      <StatisticS v-if="$route.params.id=='Statistic'" />
     </ion-content>
   </ion-page>
 </template>
@@ -41,10 +42,12 @@ import OrderChooseTables from './OrderChooseTables.vue';
 import OrderTakeAway from './OrderTakeAway.vue';
 import ChangePassword from './ChangePassword.vue';
 import RegisterStaff from './RegisterStaff.vue';
+import StatisticS from './Statistic.vue';
 
 export default defineComponent({
   name: 'FolderPage',
   components: {
+    StatisticS,
     ChangePassword,
     RegisterStaff,
     OrderTakeAway,

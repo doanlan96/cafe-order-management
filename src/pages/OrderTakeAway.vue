@@ -36,7 +36,8 @@
                     <div class="menu" v-if="filteredProducts.length > 0">
                         <!-- product 1 -->
                         <div class="table" v-for="product in filteredProducts" :key="product.id">
-                            <div class="tableContainer" @click="addProductToListOrderItems(product)">
+                            <div class="tableContainer" @click="addProductToListOrderItems(product); changeDisplayToppingModal(true);">
+                            <!-- <div class="tableContainer" @click="changeDisplayToppingModal(true); changeOrderItem(product);">     -->
                                 <div class="image">
                                     <img :src="product.picture" style="max-height:137.88px;">
                                 </div>
@@ -67,9 +68,13 @@
                     <div class="table">
                         <!--        order 1      -->
                         <div class="row" v-for="order_item in order_items" :key="order_item.name">
-                            <div class="fa-solid fa-trash-can deleteIcon" type="button" @click="removeOrderItemfromListOrderItems(order_item)"></div>
-                            <div class="td">{{order_item.name}}</div>
-                            <div class="td">
+                            <div class="fa-solid fa-trash-can deleteIcon" type="button" @click="removeOrderItemfromListOrderItems(order_item)" style="top: 0px;"></div>
+                            <div class="td">{{order_item.name}}
+                                <div v-for="topping in order_item.toppings" :key="topping.name" style="font-size: 13px; margin-top: 10px;">
+                                    <div class="fa-solid fa-plus fa-xs"></div> {{topping.name}}
+                                </div>    
+                            </div>
+                            <div class="td" style="top: 0px;">
                                 <div class="flex-w bo5 of-hidden m-l-r-auto w-size17">
                                     <button
                                         class="btn-num-product-down color1 flex-c-m size7 bg8 eff2"
@@ -93,9 +98,19 @@
                                     <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
                                     </button>
                                 </div>
-                            </div>
-                            <div class="td" style="font-size: 20px;">{{order_item.price}}</div> 
+                            </div>                           
+                            <div class="td" style="font-size: 20px;">{{order_item.price * order_item.quantity}}
+                                <div v-for="topping in order_item.toppings" :key="topping.name" style="font-size: 13px; margin-top: 10px;">
+                                    {{topping.price * order_item.quantity}}
+                                </div>                                 
+                            </div> 
+
+                            <!-- <div></div>
+                            <div class="td">
+                                <div class="fa-solid fa-plus fa-xs"></div>Tra Chanh</div>
+                                <div class="td" style="font-size: 20px;">{{order_item.price}}</div>   -->
                         </div>
+
 
                             <div class="btnMenu">
                                 <button class="form__button" @click="changePaymentMethod('cash')">Tiền mặt</button>
@@ -137,23 +152,29 @@
                                           :customer_pay="customer_pay" 
                                           :subTotal="subTotal" 
                                           :moneyReturned="moneyReturned" 
-                                          @close="changeDisplayConfirmModal" v-if="isDisplayConfirmModal" />    
+                                          @close="changeDisplayConfirmModal" v-if="isDisplayConfirmModal" />  
+                                          
+                    <ChooseToppingModal   @addTopping="addToppingToOrderItems"
+                                          @close="changeDisplayToppingModal" v-if="isDisplayToppingModal" />                                             
 
-</div>        
+</div> 
 </template>
 
 <script>
 import {mapActions, mapState} from 'vuex';
 import ConfirmOrderPayModal from "../components/ConfirmOrderPayModal.vue";
+import ChooseToppingModal from "../components/ChooseToppingModal.vue";
 
 export default {
     name: "OrderTakeAway",
     components: {
-        ConfirmOrderPayModal
+        ConfirmOrderPayModal,
+        ChooseToppingModal
     },
     data() {
         return {
-            isDisplayConfirmModal: false,            
+            isDisplayConfirmModal: false,
+            isDisplayToppingModal: false,            
             order_items : [],
             customer_pay: 0,
             payment_method: ''
@@ -181,10 +202,16 @@ export default {
         },
         subTotal() {
             let subTotal = 0;
+            let totalTopping = 0;
             for (let i = 0; i < this.order_items.length; i++) {
+                        if(this.order_items[i].toppings) {                   
+                            for (let j = 0; j < this.order_items[i].toppings.length; j++) {
+                                    totalTopping += this.order_items[i].toppings[j].price * this.order_items[i].quantity;
+                            }
+                        }
                 subTotal += this.order_items[i].price * this.order_items[i].quantity;
             }
-            return subTotal;
+            return subTotal + totalTopping;
         },
         moneyReturned() {
             let money_returned = 0;
@@ -200,6 +227,9 @@ export default {
         ...mapActions("orders", ["createOrder", "createOrderItem", "getLastestOrder", "deleteLastestOrder", "updateOrder"]),
         changeDisplayConfirmModal(value) {
             this.isDisplayConfirmModal = value
+        },
+        changeDisplayToppingModal(value) {
+            this.isDisplayToppingModal = value
         },        
         changePaymentMethod(method) {
             if (method === "cash") {
@@ -217,10 +247,15 @@ export default {
                     product_id : product.id,
                     name : product.name,
                     quantity: 1,
-                    price: product.price
+                    price: product.price,
+                    toppings: []
                 };
                 this.order_items = [order_item, ...this.order_items];
             
+        },
+        addToppingToOrderItems(toppings) {
+           let last_order_item = this.order_items[0];
+           last_order_item.toppings = toppings;
         },
         changeQuantity(order_item, operator) {
             if (operator === "minus") {
@@ -475,7 +510,8 @@ body {
         /*        layout each order       */
   .table .row{
       display: grid;
-      grid-gap: 20px;
+      grid-column-gap: 20px;
+      grid-row-gap: 0;
       margin: auto;
       grid-template-columns: [first] 40px [line2] 200px [line3] auto [col4-start] 100px [end];
       border: 0.5px solid #cbcbcb;
@@ -484,13 +520,23 @@ body {
         /*        layout data trong order       */
   .table .td{
       display: table-cell;
-      padding: 0.5rem;
+      padding-bottom: 0.5rem; 
   }
         /*        edit product name in order      */
   .td:nth-child(2) {
       padding-left: 1.5rem;
+      padding-top: 0.5rem;
       font-size: 18px;
   }
+
+  .td:nth-child(4n+2):not(:nth-child(2)) {
+      display: flex;
+      padding-left: 1.5rem;
+      align-items: center;
+      font-size: small;
+      justify-content: center;
+  }
+
         /*        edit checkbox      */
   .checkbox {
     transform: scale(1.2);
@@ -596,6 +642,7 @@ body {
   .billIcon {
       margin-right: 0.5rem;
   }
+
         /*        edit h3 chung      */
   h3 {
       font-family: Franklin Gothic Medium, sans-serif;
@@ -603,7 +650,8 @@ body {
   }
         /*        edit h4 chung      */
   h4 {
-      font-family: Franklin Gothic Medium, sans-serif;
+      font-family: Trebuchet MS, sans-serif;
+      font-weight: 600;
       padding-left: 0.5rem;
       color: #0239ef;
       margin-top: 0.5rem;
