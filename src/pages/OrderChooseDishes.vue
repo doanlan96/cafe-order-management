@@ -94,6 +94,66 @@
                                 </div>
                             </div>
                             <div class="td" style="font-size: 20px;">{{order_item.price}}</div> 
+
+                                    <!-- Topping -->
+                            <div></div>
+                            <div class="td">
+                                <div class="fa-solid fa-plus fa-xs"></div>Tra Chanh</div>
+                            <div class="td">
+                                <div class="flex-w bo5 of-hidden m-l-r-auto w-size17">
+                                    <button
+                                        class="btn-num-product-down color1 flex-c-m size7 bg8 eff2"
+                                    @click="changeQuantity(order_item,'minus')"
+                                    >
+                                    <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+
+                                    <input
+                                        class="size8 m-text18 t-center num-product"
+                                        type="number"
+                                        name="num-product1"
+                                        v-model="order_item.quantity"
+                                        style="width:30%;"
+                                    />
+
+                                    <button
+                                        class="btn-num-product-up color1 flex-c-m size7 bg8 eff2"
+                                        @click="changeQuantity(order_item,'plus')"                                        
+                                    >
+                                    <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="td" style="font-size: 20px;">{{order_item.price}}</div>
+                            <div></div>
+                            <div class="td">
+                                <div class="fa-solid fa-plus fa-xs"></div>Tra Chanh</div>
+                            <div class="td">
+                                <div class="flex-w bo5 of-hidden m-l-r-auto w-size17">
+                                    <button
+                                        class="btn-num-product-down color1 flex-c-m size7 bg8 eff2"
+                                    @click="changeQuantity(order_item,'minus')"
+                                    >
+                                    <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+
+                                    <input
+                                        class="size8 m-text18 t-center num-product"
+                                        type="number"
+                                        name="num-product1"
+                                        v-model="order_item.quantity"
+                                        style="width:30%;"
+                                    />
+
+                                    <button
+                                        class="btn-num-product-up color1 flex-c-m size7 bg8 eff2"
+                                        @click="changeQuantity(order_item,'plus')"                                        
+                                    >
+                                    <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="td" style="font-size: 20px;">{{order_item.price}}</div>  
                         </div>
 
 
@@ -119,7 +179,25 @@
                                           :subTotal="subTotal" 
                                           @close="changeDisplayConfirmModal" v-if="isDisplayConfirmModal" />   
 
-</div>        
+</div>  
+                                        <!--            Topping          -->
+<!-- <div class="toppingContainer">
+        <div class="t-title">
+            <h3>Chon topping</h3>
+        </div>
+        <div class="t-btn">
+            <button class="form__button">Tran chau trang</button>
+            <button class="form__button">Thach nha dam</button>
+            <button class="form__button">Thach con ca</button>
+            <button class="form__button">Hat chia</button>
+            <button class="form__button">It duong</button>
+            <button class="form__button">It da</button>
+        </div>
+        <div class="btnS">
+            <button class="back">Tro ve</button>
+            <button class="confirm">Xac nhan</button>
+        </div>
+    </div>        -->   
 </template>
 
 <script>
@@ -455,7 +533,8 @@ body {
         /*        layout each order       */
   .table .row{
       display: grid;
-      grid-gap: 20px;
+      grid-column-gap: 20px;
+      grid-row-gap: 0;
       margin: auto;
       grid-template-columns: [first] 40px [line2] 200px [line3] auto [col4-start] 100px [end];
       border: 0.5px solid #cbcbcb;
@@ -464,13 +543,23 @@ body {
         /*        layout data trong order       */
   .table .td{
       display: table-cell;
-      padding: 0.5rem;
+      padding-bottom: 0.5rem; 
   }
         /*        edit product name in order      */
   .td:nth-child(2) {
       padding-left: 1.5rem;
+      padding-top: 0.5rem;
       font-size: 18px;
   }
+
+  .td:nth-child(4n+2):not(:nth-child(2)) {
+      display: flex;
+      padding-left: 1.5rem;
+      align-items: center;
+      font-size: small;
+      justify-content: center;
+  }
+  
         /*        edit checkbox      */
   .checkbox {
     transform: scale(1.2);
@@ -567,6 +656,68 @@ body {
   .billIcon {
       margin-right: 0.5rem;
   }
+        /*          topping      */
+.toppingContainer {
+      display: flex;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      flex-direction: column;
+      width: 500px;
+      height: fit-content;
+      background: white;
+      align-items: center;
+  }
+
+  .t-title {
+      display: inline;
+  }
+
+  .t-btn {
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      grid-template-columns: [first] auto [line2] auto [line3] auto [end];
+  }
+
+  .btnS {
+      display: grid;
+      grid-template-columns: [line1] 150px [line2] 150px [end];
+      align-items: center;
+      justify-content: center;
+  }
+
+  .back {
+      padding: 0.5rem 1.5rem;
+      margin: 10px;
+      background-color: #fc8484;
+      border: 1px solid #8d8d8d94;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: Trebuchet MS, sans-serif;
+      font-size: medium;
+  }
+
+  .back:hover {
+      background-color: #44d574;
+  }
+
+  .confirm {
+      padding: 0.5rem 1.5rem;
+      margin: 10px;
+      background-color: #91dee0;
+      border: 1px solid #8d8d8d94;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: Trebuchet MS, sans-serif;
+      font-size: medium;
+  }
+
+  .confirm:hover {
+      background-color: #44d574;
+  }
+
         /*        edit h3 chung      */
   h3 {
       font-family: Franklin Gothic Medium, sans-serif;
@@ -574,7 +725,8 @@ body {
   }
         /*        edit h4 chung      */
   h4 {
-      font-family: Franklin Gothic Medium, sans-serif;
+      font-family: Trebuchet MS, sans-serif;
+      font-weight: 600;
       padding-left: 0.5rem;
       color: #0239ef;
       margin-top: 0.5rem;

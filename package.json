@@ -25,6 +25,7 @@
     "core-js": "^3.6.5",
     "crypto-js": "^4.1.1",
     "fa": "^1.0.1",
+    "v-calendar": "^3.0.0-alpha.8",
     "vee-validate": "^4.5.9",
     "vue": "^3.2.21",
     "vue-html-to-paper": "^1.4.4",
