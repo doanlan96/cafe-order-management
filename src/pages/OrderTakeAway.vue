@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="p-detail">
                                     <h3 id="p-name">{{product.name}}</h3>
-                                    <h3 id="p-price">{{product.price}}</h3>
+                                    <h3 id="p-price">{{product.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</h3>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                             <div class="sum">
                                 <h4>Tổng tiền</h4>
                                 <!-- <input id="tong" type="text" class="m-sum" :value="order_items" disabled> -->
-                                <h5 class="money">{{subTotal}}</h5>
+                                <h5 class="money">{{subTotal.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</h5>
                             </div>
                             <div class="p-method" v-show="payment_method==='cash'">
                                 <div class="c-pay">

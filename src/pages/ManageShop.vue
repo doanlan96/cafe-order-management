@@ -109,7 +109,7 @@
                     <td v-if="product.category_id==8">Cafe</td>
                     <td v-if="product.category_id==9">Đồ ăn vặt</td>    
                     <td v-if="product.category_id==10">Trà sữa</td>                                                        
-                    <td>{{product.price}}</td>
+                    <td>{{product.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</td>
                     <td class="btnedit" style="text-align:center"><button @click="changeDisplay(true); changeProduct(product)" type="button" class="btn btn-success">Sửa món</button></td>
                     <td class="btndelete" style="text-align:center"><button @click="changeDisplayConfirmModal(true); changeProductIDToDelete(product.id)" type="button" class="btn btn-danger">Xóa món</button></td>
                   </tr>                  

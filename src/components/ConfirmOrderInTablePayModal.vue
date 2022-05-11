@@ -80,7 +80,7 @@
                     <th>{{order_item.product_name}}</th>
                     <th>{{order_item.quantity}}</th>
                     <th>{{order_item.product_price}}</th>
-                    <th>{{order_item.quantity * order_item.product_price}}</th>
+                    <th>{{(order_item.quantity * order_item.product_price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</th>
                 </tr>
             </table>
         </div>
@@ -90,7 +90,7 @@
                 Thành tiền: 
             </div>
             <div class="des">
-                <p class="money">{{order_in_table.sum}}</p>
+                <p class="money">{{order_in_table.sum.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</p>
             </div>
         </div>
         
@@ -102,9 +102,9 @@
                 Phương thức:
             </div>
             <div class="des">
-                {{order_in_table.sum}}
-                <p class="money-charge">{{customer_pay}}</p>
-                <p class="money-charge">{{moneyReturned}}</p>
+                {{order_in_table.sum.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}
+                <p class="money-charge">{{customer_pay.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</p>
+                <p class="money-charge">{{moneyReturned.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</p>
                 {{payment_method}}
             </div>
         </div>

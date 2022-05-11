@@ -72,9 +72,9 @@
                             {{topping.price}}
                         </div>                         
                     </th>
-                    <th>{{order_item.quantity * order_item.price}}
+                    <th>{{(order_item.quantity * order_item.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}
                         <div v-for="topping in order_item.toppings" :key="topping.name" >
-                            {{topping.price * order_item.quantity}}
+                            {{(topping.price * order_item.quantity).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}
                         </div>                        
                     </th>  
                 </tr>
@@ -86,7 +86,7 @@
                 Thành tiền: 
             </div>
             <div class="des">
-                <p class="money">{{subTotal}}</p>
+                <p class="money">{{subTotal.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</p>
             </div>
         </div>
         
@@ -98,9 +98,9 @@
                 Phương thức:
             </div>
             <div class="des">
-                {{subTotal}}
-                <p class="money-charge">{{customer_pay}}</p>
-                <p class="money-charge">{{moneyReturned}}</p>
+                {{subTotal.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}
+                <p class="money-charge">{{customer_pay.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</p>
+                <p class="money-charge">{{moneyReturned.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</p>
                 {{payment_method}}
             </div>
         </div>

@@ -78,12 +78,12 @@ export default defineComponent({
         iosIcon: mailOutline,
         mdIcon: mailSharp
       },
-      {
-        title: 'Đơn hàng App',
-        url: '/folder/Online Delivery',
-        iosIcon: paperPlaneOutline,
-        mdIcon: paperPlaneSharp
-      },
+      // {
+      //   title: 'Đơn hàng App',
+      //   url: '/folder/Online Delivery',
+      //   iosIcon: paperPlaneOutline,
+      //   mdIcon: paperPlaneSharp
+      // },
       {
         title: 'Báo cáo thống kê',
         url: '/folder/Statistic',
@@ -102,18 +102,18 @@ export default defineComponent({
         iosIcon: personAddOutline,
         mdIcon: personAddSharp
       },     
-      {
-        title: 'Cài đặt',
-        url: '/folder/Settings',
-        iosIcon: trashOutline,
-        mdIcon: trashSharp
-      },
-      {
-        title: 'About',
-        url: '/folder/About',
-        iosIcon: warningOutline,
-        mdIcon: warningSharp
-      },
+      // {
+      //   title: 'Cài đặt',
+      //   url: '/folder/Settings',
+      //   iosIcon: trashOutline,
+      //   mdIcon: trashSharp
+      // },
+      // {
+      //   title: 'About',
+      //   url: '/folder/About',
+      //   iosIcon: warningOutline,
+      //   mdIcon: warningSharp
+      // },
       {
         title: 'Đổi mật khẩu',
         url: '/folder/Change Password',

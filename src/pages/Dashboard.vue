@@ -10,7 +10,7 @@
                     </ion-card-header>
 
                     <ion-card-content>
-                    Keep close to Nature's heart... and break clear away, once in awhile,
+                    <!-- Keep close to Nature's heart... and break clear away, once in awhile,
                     and climb a mountain or spend a week in the woods. Wash your spirit clean.
                     Keep close to Nature's heart... and break clear away, once in awhile,
                     and climb a mountain or spend a week in the woods. Wash your spirit clean.
@@ -25,8 +25,7 @@
                     Keep close to Nature's heart... and break clear away, once in awhile,
                     and climb a mountain or spend a week in the woods. Wash your spirit clean.
                     Keep close to Nature's heart... and break clear away, once in awhile,
-                    and climb a mountain or spend a week in the woods. Wash your spirit clean.
-                    
+                    and climb a mountain or spend a week in the woods. Wash your spirit clean. -->
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -89,14 +88,14 @@
                     </ion-card-header>
 
                     <ion-card-content>
-                    Keep close to Nature's heart... and break clear away, once in awhile,
+                    <!-- Keep close to Nature's heart... and break clear away, once in awhile,
                     and climb a mountain or spend a week in the woods. Wash your spirit clean.
                     Keep close to Nature's heart... and break clear away, once in awhile,
                     and climb a mountain or spend a week in the woods. Wash your spirit clean.
                     Keep close to Nature's heart... and break clear away, once in awhile,
                     and climb a mountain or spend a week in the woods. Wash your spirit clean.
                     Keep close to Nature's heart... and break clear away, once in awhile,
-                    and climb a mountain or spend a week in the woods. Wash your spirit clean.
+                    and climb a mountain or spend a week in the woods. Wash your spirit clean. -->
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -128,7 +127,7 @@ import {mapActions, mapState} from 'vuex';
 export default {
     name: 'DashBoard',
     components: {
-        IonIcon
+        IonIcon,
     },
     data() {
       return  {
@@ -136,7 +135,7 @@ export default {
           carOutline,
           cashOutline,
           date: new Date(),
-          }  
+        }  
     },
     created() {
         this.$store.dispatch("orders/getAllOrders");

@@ -54,7 +54,7 @@
                     <th>{{order_item.name}}</th>
                     <th>{{order_item.quantity}}</th>
                     <th>{{order_item.price}}</th>
-                    <th>{{order_item.quantity * order_item.price}}</th>
+                    <th>{{(order_item.quantity * order_item.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</th>
                 </tr>
             </table>
         </div>
@@ -64,7 +64,7 @@
                 Thành tiền: 
             </div>
             <div class="des">
-                <p class="money">{{subTotal}}</p>
+                <p class="money">{{subTotal.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</p>
             </div>
         </div>
         

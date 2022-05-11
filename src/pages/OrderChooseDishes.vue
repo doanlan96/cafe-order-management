@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="p-detail">
                                     <h3 id="p-name">{{product.name}}</h3>
-                                    <h3 id="p-price">{{product.price}}</h3>
+                                    <h3 id="p-price">{{product.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</h3>
                                 </div>
                             </div>
                         </div>
@@ -94,66 +94,7 @@
                                 </div>
                             </div>
                             <div class="td" style="font-size: 20px;">{{order_item.price}}</div> 
-
-                                    <!-- Topping -->
-                            <div></div>
-                            <div class="td">
-                                <div class="fa-solid fa-plus fa-xs"></div>Tra Chanh</div>
-                            <div class="td">
-                                <div class="flex-w bo5 of-hidden m-l-r-auto w-size17">
-                                    <button
-                                        class="btn-num-product-down color1 flex-c-m size7 bg8 eff2"
-                                    @click="changeQuantity(order_item,'minus')"
-                                    >
-                                    <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-
-                                    <input
-                                        class="size8 m-text18 t-center num-product"
-                                        type="number"
-                                        name="num-product1"
-                                        v-model="order_item.quantity"
-                                        style="width:30%;"
-                                    />
-
-                                    <button
-                                        class="btn-num-product-up color1 flex-c-m size7 bg8 eff2"
-                                        @click="changeQuantity(order_item,'plus')"                                        
-                                    >
-                                    <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="td" style="font-size: 20px;">{{order_item.price}}</div>
-                            <div></div>
-                            <div class="td">
-                                <div class="fa-solid fa-plus fa-xs"></div>Tra Chanh</div>
-                            <div class="td">
-                                <div class="flex-w bo5 of-hidden m-l-r-auto w-size17">
-                                    <button
-                                        class="btn-num-product-down color1 flex-c-m size7 bg8 eff2"
-                                    @click="changeQuantity(order_item,'minus')"
-                                    >
-                                    <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-
-                                    <input
-                                        class="size8 m-text18 t-center num-product"
-                                        type="number"
-                                        name="num-product1"
-                                        v-model="order_item.quantity"
-                                        style="width:30%;"
-                                    />
-
-                                    <button
-                                        class="btn-num-product-up color1 flex-c-m size7 bg8 eff2"
-                                        @click="changeQuantity(order_item,'plus')"                                        
-                                    >
-                                    <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="td" style="font-size: 20px;">{{order_item.price}}</div>  
+                           
                         </div>
 
 
@@ -163,7 +104,7 @@
                             <div class="sum">
                                 <h4>Tổng tiền</h4>
                                 <!-- <input id="tong" type="text" class="m-sum" :value="order_items" disabled> -->
-                                <h5 class="money">{{subTotal}}</h5>
+                                <h5 class="money">{{subTotal.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</h5>
                             </div>
                             <div class="payment" v-if="order_items.length > 0">
                                 <button class="pay" @click="changeDisplayConfirmModal(true)">Tạo bàn</button>
@@ -250,7 +191,7 @@ export default {
             if (money_returned < 0) {
                 money_returned = 0;
             }
-            return money_returned;
+            return money_returned.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
         }        
     },
     methods: {

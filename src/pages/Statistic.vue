@@ -17,7 +17,7 @@
                <div class="r-stat">Tổng số đơn: {{totalOrders}} đơn</div>
                <div class="r-stat">Đơn tiền mặt: {{totalCashOrders}} đơn</div>
                <div class="r-stat">Đơn chuyển khoản: {{totalBankOrders}} đơn</div>
-               <div class="r-stat">Tổng doanh thu: {{totalRevenue}} VND</div>
+               <div class="r-stat">Tổng doanh thu: {{totalRevenue}}</div>
            </div>
        </section>
 
@@ -73,7 +73,7 @@
                 <div class="td">{{order.time_in}}</div>
                 <div class="td" v-show="order.payment_method==='cash'">Tiền mặt</div>
                 <div class="td" v-show="order.payment_method==='bank'">Chuyển khoản</div>
-                <div class="td">{{order.sum}}</div>
+                <div class="td">{{order.sum.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}}</div>
                 <div class="td" @click="changeDisplay(true); getOrderItemsByOrderID(order.id); changeOrder(order);">Xem chi tiết</div>
             </div> 
        </div>
@@ -167,7 +167,7 @@ export default {
             for (let i = 0; i < this.filteredOrders.length; i++) {
                     total_revenue += this.filteredOrders[i].sum;
             }
-            return total_revenue;
+            return total_revenue.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
         },
         },
     methods: {
